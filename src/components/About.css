@@ -1,6 +1,8 @@
+/* Professional About Section */
 .about {
   background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
   position: relative;
+  padding: var(--spacing-4xl) 0;
 }
 
 .about::before {
@@ -9,32 +11,46 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
+  height: 3px;
   background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
 }
 
 .about-header {
   text-align: center;
-  margin-bottom: var(--spacing-xxl);
+  margin-bottom: var(--spacing-4xl);
 }
 
-/* Team Grid */
+.about-header h2 {
+  color: var(--color-accent);
+  margin-bottom: var(--spacing-lg);
+}
+
+.about-header p {
+  color: var(--color-text-secondary);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Professional Team Grid */
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: var(--spacing-xl);
-  margin-bottom: var(--spacing-xxl);
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--spacing-xxl);
+  margin-bottom: var(--spacing-4xl);
 }
 
-/* Character Cards */
+/* Professional Character Cards */
 .character-card {
   background: var(--color-card);
   border: 2px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-xl);
   position: relative;
-  transition: var(--transition-normal);
+  transition: all var(--transition-normal) var(--ease-out-quart);
   overflow: hidden;
+  cursor: pointer;
 }
 
 .character-card::before {
@@ -46,7 +62,8 @@
   height: 4px;
   background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
   transform: scaleX(0);
-  transition: var(--transition-normal);
+  transition: transform var(--transition-normal) var(--ease-out-quart);
+  transform-origin: left;
 }
 
 .character-card:hover::before {
@@ -60,6 +77,24 @@
   left: 50%;
   width: 0;
   height: 0;
+  background: radial-gradient(circle, var(--color-accent-subtle), transparent 70%);
+  transition: all var(--transition-slower) var(--ease-out-quart);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.character-card:hover::after {
+  width: 200%;
+  height: 200%;
+}
+
+.character-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--color-accent);
+  background: var(--color-card-hover);
+  box-shadow: var(--shadow-xl), var(--shadow-glow-accent);
+}
   background: radial-gradient(circle, rgba(255, 122, 0, 0.1), transparent 70%);
   transition: var(--transition-slow);
   transform: translate(-50%, -50%);

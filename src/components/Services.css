@@ -41,11 +41,11 @@
   line-height: 1.6;
 }
 
-/* Quest Board */
+/* Professional Quest Board */
 .quest-board {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: var(--spacing-lg);
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: var(--spacing-xl);
   max-width: 1400px;
   margin: 0 auto;
 }
@@ -53,11 +53,12 @@
 .quest-card {
   background: var(--color-card);
   border: 2px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-xl);
   position: relative;
-  transition: var(--transition-normal);
+  transition: all var(--transition-normal) var(--ease-out-quart);
   overflow: hidden;
+  cursor: pointer;
 }
 
 .quest-card::before {
@@ -69,7 +70,7 @@
   height: 3px;
   background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
   transform: scaleX(0);
-  transition: var(--transition-normal);
+  transition: transform var(--transition-normal) var(--ease-out-quart);
   transform-origin: left;
 }
 
@@ -84,10 +85,11 @@
   left: 50%;
   width: 0;
   height: 0;
-  background: radial-gradient(circle, rgba(0, 212, 255, 0.1), transparent 70%);
-  transition: var(--transition-slow);
+  background: radial-gradient(circle, var(--color-accent-subtle), transparent 70%);
+  transition: all var(--transition-slower) var(--ease-out-quart);
   transform: translate(-50%, -50%);
   border-radius: 50%;
+  z-index: 1;
 }
 
 .quest-card:hover::after {
@@ -98,146 +100,190 @@
 .quest-card:hover {
   transform: translateY(-8px);
   border-color: var(--color-accent);
+  background: var(--color-card-hover);
   box-shadow: 
-    var(--shadow-lg),
-    0 0 30px rgba(0, 212, 255, 0.2);
+    var(--shadow-xl),
+    var(--shadow-glow-accent);
 }
 
-/* Quest Header */
+/* Professional Quest Header */
 .quest-header {
   display: flex;
   align-items: flex-start;
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-md);
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  position: relative;
+  z-index: 2;
 }
 
 .quest-icon {
   font-size: 2.5rem;
   background: var(--bg-secondary);
-  padding: var(--spacing-sm);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-xl);
+  border: 2px solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 60px;
-  height: 60px;
-  transition: var(--transition-fast);
+  min-width: 70px;
+  height: 70px;
+  transition: all var(--transition-normal) var(--ease-out-quart);
+  box-shadow: var(--shadow-md);
 }
 
 .quest-card:hover .quest-icon {
-  transform: scale(1.1);
+  transform: scale(1.1) rotate(5deg);
   border-color: var(--color-accent);
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+  box-shadow: var(--shadow-lg), var(--shadow-glow-accent);
+  background: var(--color-card-hover);
 }
 
 .quest-meta {
   flex: 1;
+  position: relative;
+  z-index: 2;
 }
 
 .quest-title {
-  font-size: 1.3rem;
-  margin-bottom: var(--spacing-xs);
+  font-size: 1.4rem;
+  margin-bottom: var(--spacing-sm);
   color: var(--color-text);
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
+  line-height: 1.3;
+  font-family: var(--font-heading);
 }
 
 .difficulty-badge {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--spacing-xs);
   font-family: var(--font-heading);
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 0.85rem;
+  font-weight: var(--font-weight-semibold);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.05em;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-md);
+  background: var(--color-card-hover);
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-fast);
 }
 
-/* Quest Content */
+.quest-card:hover .difficulty-badge {
+  border-color: var(--color-accent);
+  background: var(--color-accent-subtle);
+}
+
+/* Professional Quest Content */
 .quest-description {
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
   color: var(--color-text-secondary);
-  line-height: 1.6;
+  line-height: 1.7;
+  font-size: 1rem;
+  position: relative;
+  z-index: 2;
 }
 
 .quest-requirements {
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  position: relative;
+  z-index: 2;
 }
 
 .quest-requirements h4 {
   font-size: 0.9rem;
   color: var(--color-accent);
-  margin-bottom: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
   font-family: var(--font-heading);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.05em;
+  font-weight: var(--font-weight-semibold);
 }
 
 .tech-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-xs);
+  gap: var(--spacing-sm);
 }
 
 .tech-tag {
   background: var(--bg-secondary);
   color: var(--color-text-secondary);
-  padding: 4px var(--spacing-xs);
-  border-radius: var(--radius-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-md);
   font-size: 0.8rem;
   border: 1px solid var(--color-border);
-  transition: var(--transition-fast);
+  transition: all var(--transition-fast) var(--ease-out-quart);
+  font-weight: var(--font-weight-medium);
+  font-family: var(--font-mono);
 }
 
 .quest-card:hover .tech-tag {
   border-color: var(--color-accent);
   color: var(--color-accent);
+  background: var(--color-accent-subtle);
+  transform: translateY(-2px);
 }
 
-/* Quest Reward */
+/* Professional Quest Reward */
 .quest-reward {
   display: flex;
   align-items: center;
-  gap: var(--spacing-xs);
-  margin-bottom: var(--spacing-lg);
-  padding: var(--spacing-sm);
-  background: rgba(255, 122, 0, 0.1);
-  border-radius: var(--radius-sm);
-  border: 1px solid rgba(255, 122, 0, 0.3);
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-md);
+  background: var(--color-primary-subtle);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 107, 53, 0.3);
+  position: relative;
+  z-index: 2;
+  transition: all var(--transition-fast);
+}
+
+.quest-card:hover .quest-reward {
+  border-color: var(--color-primary);
+  background: rgba(255, 107, 53, 0.15);
+  transform: translateY(-2px);
 }
 
 .reward-label {
   font-family: var(--font-heading);
   font-size: 0.9rem;
   color: var(--color-primary);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .reward-value {
   color: var(--color-text);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
+  line-height: 1.4;
 }
 
-/* Accept Quest Button */
+/* Professional Accept Quest Button */
 .accept-quest-btn {
   width: 100%;
   background: transparent;
   border: 2px solid var(--color-accent);
   color: var(--color-accent);
-  padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: var(--radius-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius-xl);
   font-family: var(--font-heading);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.05em;
   cursor: pointer;
-  transition: var(--transition-normal);
+  transition: all var(--transition-normal) var(--ease-out-quart);
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-xs);
+  gap: var(--spacing-sm);
+  z-index: 2;
+  font-size: 0.9rem;
+  min-height: 3rem;
 }
 
 .accept-quest-btn::before {
@@ -248,7 +294,7 @@
   width: 100%;
   height: 100%;
   background: var(--color-accent);
-  transition: var(--transition-normal);
+  transition: left var(--transition-normal) var(--ease-out-quart);
   z-index: 1;
 }
 
@@ -258,21 +304,24 @@
 
 .accept-quest-btn:hover {
   color: var(--bg-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg), var(--shadow-glow-accent);
+  border-color: var(--color-accent);
+}
+
+.accept-quest-btn:active {
+  transform: translateY(-1px);
+  transition: transform var(--transition-instant);
 }
 
 .btn-text, .btn-arrow {
   position: relative;
   z-index: 2;
-}
-
-.btn-arrow {
-  transition: var(--transition-fast);
+  transition: transform var(--transition-fast);
 }
 
 .accept-quest-btn:hover .btn-arrow {
-  transform: translateX(5px);
+  transform: translateX(5px) scale(1.2);
 }
 
 /* Why Choose Us Section */
