@@ -1,0 +1,173 @@
+.game-controls {
+  position: fixed;
+  top: 50%;
+  right: var(--spacing-lg);
+  transform: translateY(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.control-btn {
+  width: 60px;
+  height: 60px;
+  background: var(--color-card);
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  gap: 2px;
+}
+
+.control-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.1), transparent 70%);
+  transform: scale(0);
+  transition: var(--transition-fast);
+  border-radius: 50%;
+}
+
+.control-btn:hover::before {
+  transform: scale(1);
+}
+
+.control-btn:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(0, 212, 255, 0.3);
+}
+
+.control-btn:active {
+  transform: translateY(0) scale(0.95);
+}
+
+.control-icon {
+  font-size: 1.8rem;
+  filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.5));
+  transition: var(--transition-fast);
+}
+
+.control-btn:hover .control-icon {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 12px var(--color-accent));
+}
+
+.control-indicator {
+  position: relative;
+  width: 20px;
+  height: 6px;
+  background: var(--bg-secondary);
+  border-radius: 3px;
+  border: 1px solid var(--color-border);
+}
+
+.indicator-dot {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transition: var(--transition-normal);
+  box-shadow: 0 0 6px currentColor;
+}
+
+/* Sound Toggle States */
+.sound-toggle .indicator-dot {
+  left: 2px;
+  background: #666;
+  color: #666;
+}
+
+.sound-toggle .indicator-dot.active {
+  left: 10px;
+  background: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* Theme Toggle States */
+.theme-toggle .indicator-dot.night {
+  left: 2px;
+  background: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.theme-toggle .indicator-dot.day {
+  left: 10px;
+  background: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Special Effects */
+.sound-toggle:hover .control-icon {
+  animation: soundPulse 0.5s ease-in-out;
+}
+
+.theme-toggle:hover .control-icon {
+  animation: themeRotate 0.5s ease-in-out;
+}
+
+@keyframes soundPulse {
+  0%, 100% { transform: scale(1.1); }
+  50% { transform: scale(1.3); }
+}
+
+@keyframes themeRotate {
+  0% { transform: scale(1.1) rotate(0deg); }
+  50% { transform: scale(1.2) rotate(180deg); }
+  100% { transform: scale(1.1) rotate(360deg); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .game-controls {
+    right: var(--spacing-sm);
+    top: auto;
+    bottom: var(--spacing-lg);
+    transform: none;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  
+  .control-btn {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .control-icon {
+    font-size: 1.5rem;
+  }
+  
+  .control-indicator {
+    width: 16px;
+    height: 5px;
+  }
+  
+  .indicator-dot {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .sound-toggle .indicator-dot.active {
+    left: 8px;
+  }
+  
+  .theme-toggle .indicator-dot.day {
+    left: 8px;
+  }
+}

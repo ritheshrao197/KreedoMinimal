@@ -1,0 +1,333 @@
+/* Mobile-first Responsive Utilities */
+
+/* Container system with responsive breakpoints */
+.container {
+  width: 100%;
+  max-width: var(--container-sm);
+  margin: 0 auto;
+  padding: 0 var(--spacing-sm);
+}
+
+@media (min-width: 36em) {
+  .container {
+    max-width: var(--container-md);
+    padding: 0 var(--spacing-md);
+  }
+}
+
+@media (min-width: 48em) {
+  .container {
+    max-width: var(--container-lg);
+  }
+}
+
+@media (min-width: 64em) {
+  .container {
+    max-width: var(--container-xl);
+  }
+}
+
+@media (min-width: 75em) {
+  .container {
+    padding: 0 var(--spacing-xl);
+  }
+}
+
+/* Responsive grid system */
+.grid {
+  display: grid;
+  gap: var(--spacing-sm);
+}
+
+.grid-1 { grid-template-columns: 1fr; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (min-width: 48em) {
+  .grid {
+    gap: var(--spacing-md);
+  }
+}
+
+@media (min-width: 64em) {
+  .grid {
+    gap: var(--spacing-lg);
+  }
+}
+
+/* Auto-fit responsive grids */
+.grid-auto-fit-sm {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-sm);
+}
+
+@media (min-width: 36em) {
+  .grid-auto-fit-sm {
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: var(--spacing-md);
+  }
+}
+
+.grid-auto-fit-md {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+}
+
+@media (min-width: 48em) {
+  .grid-auto-fit-md {
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: var(--spacing-lg);
+  }
+}
+
+/* Responsive spacing utilities */
+.p-responsive {
+  padding: var(--spacing-sm);
+}
+
+@media (min-width: 48em) {
+  .p-responsive {
+    padding: var(--spacing-md);
+  }
+}
+
+@media (min-width: 64em) {
+  .p-responsive {
+    padding: var(--spacing-lg);
+  }
+}
+
+.py-responsive {
+  padding-top: var(--spacing-sm);
+  padding-bottom: var(--spacing-sm);
+}
+
+@media (min-width: 48em) {
+  .py-responsive {
+    padding-top: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+  }
+}
+
+@media (min-width: 64em) {
+  .py-responsive {
+    padding-top: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+  }
+}
+
+/* Responsive text utilities */
+.text-responsive {
+  font-size: var(--text-sm);
+}
+
+@media (min-width: 48em) {
+  .text-responsive {
+    font-size: var(--text-base);
+  }
+}
+
+@media (min-width: 64em) {
+  .text-responsive {
+    font-size: var(--text-lg);
+  }
+}
+
+.heading-responsive {
+  font-size: var(--text-lg);
+}
+
+@media (min-width: 48em) {
+  .heading-responsive {
+    font-size: var(--text-xl);
+  }
+}
+
+@media (min-width: 64em) {
+  .heading-responsive {
+    font-size: var(--text-2xl);
+  }
+}
+
+/* Touch-friendly buttons */
+.btn-touch {
+  min-height: 2.75rem; /* 44px minimum touch target */
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--text-sm);
+}
+
+@media (min-width: 48em) {
+  .btn-touch {
+    min-height: 3rem;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-size: var(--text-base);
+  }
+}
+
+/* Responsive card system */
+.card-responsive {
+  background: var(--color-card);
+  border: 0.0625rem solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-sm);
+  transition: var(--transition-normal);
+}
+
+@media (min-width: 48em) {
+  .card-responsive {
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+  }
+}
+
+@media (min-width: 64em) {
+  .card-responsive {
+    padding: var(--spacing-lg);
+  }
+  
+  .card-responsive:hover {
+    transform: translateY(-0.25rem);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+/* Mobile navigation utilities */
+.nav-mobile-only {
+  display: block;
+}
+
+@media (min-width: 48em) {
+  .nav-mobile-only {
+    display: none;
+  }
+}
+
+.nav-desktop-only {
+  display: none;
+}
+
+@media (min-width: 48em) {
+  .nav-desktop-only {
+    display: block;
+  }
+}
+
+/* Flex utilities for responsive layouts */
+.flex-mobile-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+@media (min-width: 48em) {
+  .flex-mobile-column {
+    flex-direction: row;
+    gap: var(--spacing-md);
+  }
+}
+
+/* Responsive image scaling */
+.img-responsive {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Hide elements on specific breakpoints */
+.hide-mobile {
+  display: none;
+}
+
+@media (min-width: 48em) {
+  .hide-mobile {
+    display: initial;
+  }
+}
+
+.hide-desktop {
+  display: initial;
+}
+
+@media (min-width: 48em) {
+  .hide-desktop {
+    display: none;
+  }
+}
+
+/* Responsive section spacing */
+.section-responsive {
+  padding: var(--spacing-xl) 0;
+}
+
+@media (min-width: 48em) {
+  .section-responsive {
+    padding: var(--spacing-xxl) 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* Form input responsive sizing */
+.input-responsive {
+  width: 100%;
+  padding: var(--spacing-sm);
+  font-size: var(--text-base);
+  border: 0.0625rem solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-card);
+  color: var(--color-text);
+  min-height: 2.75rem;
+}
+
+@media (min-width: 48em) {
+  .input-responsive {
+    padding: var(--spacing-md);
+    min-height: 3rem;
+  }
+}
+
+/* Responsive icon sizing */
+.icon-responsive {
+  font-size: var(--text-lg);
+}
+
+@media (min-width: 48em) {
+  .icon-responsive {
+    font-size: var(--text-xl);
+  }
+}
+
+@media (min-width: 64em) {
+  .icon-responsive {
+    font-size: var(--text-2xl);
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .card-responsive,
+  .btn-touch {
+    border-width: 0.125rem;
+  }
+}
+
+/* Focus visible for better accessibility */
+.btn-touch:focus-visible,
+.input-responsive:focus-visible {
+  outline: 0.125rem solid var(--color-accent);
+  outline-offset: 0.125rem;
+}

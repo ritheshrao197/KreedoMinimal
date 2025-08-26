@@ -1,0 +1,392 @@
+/* CSS Reset and Global Variables */
+:root {
+  /* Color Palette */
+  --bg-primary: #1A1A1A;
+  --bg-secondary: #242424;
+  --color-primary: #FF7A00;
+  --color-accent: #00D4FF;
+  --color-text: #F5F5F5;
+  --color-text-secondary: #B0B0B0;
+  --color-card: #2A2A2A;
+  --color-border: #404040;
+  
+  /* Fonts */
+  --font-heading: 'Orbitron', monospace;
+  --font-body: 'Inter', sans-serif;
+  
+  /* Mobile-first Spacing (rem units) */
+  --spacing-xs: 0.5rem;   /* 8px */
+  --spacing-sm: 1rem;     /* 16px */
+  --spacing-md: 1.5rem;   /* 24px */
+  --spacing-lg: 2rem;     /* 32px */
+  --spacing-xl: 3rem;     /* 48px */
+  --spacing-xxl: 4rem;    /* 64px */
+  
+  /* Container widths */
+  --container-sm: 100%;
+  --container-md: 48rem;   /* 768px */
+  --container-lg: 64rem;   /* 1024px */
+  --container-xl: 80rem;   /* 1280px */
+  
+  /* Border Radius */
+  --radius-sm: 0.25rem;    /* 4px */
+  --radius-md: 0.5rem;     /* 8px */
+  --radius-lg: 0.75rem;    /* 12px */
+  
+  /* Shadows */
+  --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 1.25rem rgba(0, 212, 255, 0.3);
+  --shadow-glow-orange: 0 0 1.25rem rgba(255, 122, 0, 0.3);
+  
+  /* Animations */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* Typography scale (mobile-first) */
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.875rem;     /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg: 1.125rem;     /* 18px */
+  --text-xl: 1.25rem;      /* 20px */
+  --text-2xl: 1.5rem;      /* 24px */
+  --text-3xl: 1.875rem;    /* 30px */
+  --text-4xl: 2.25rem;     /* 36px */
+  --text-5xl: 3rem;        /* 48px */
+}
+
+/* CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 100%; /* 16px base */
+}
+
+/* Mobile-first body styles */
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--color-text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  font-size: var(--text-base);
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g fill="%2300D4FF"><rect x="14" y="6" width="4" height="8"/><rect x="6" y="14" width="8" height="4"/><rect x="18" y="14" width="8" height="4"/><rect x="14" y="18" width="4" height="8"/><rect x="13" y="13" width="6" height="6" fill="%23FF7A00"/><rect x="12" y="12" width="8" height="8" fill="none" stroke="%2300D4FF" stroke-width="2"/></g></svg>') 16 16, crosshair;
+}
+
+/* Background Pattern */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(255, 122, 0, 0.1) 0%, transparent 50%);
+  background-size: 100% 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Mobile-first Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Mobile typography sizes */
+h1 {
+  font-size: var(--text-3xl);
+  font-weight: 900;
+}
+
+h2 {
+  font-size: var(--text-2xl);
+}
+
+h3 {
+  font-size: var(--text-xl);
+}
+
+h4 {
+  font-size: var(--text-lg);
+}
+
+p {
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.7;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-primary);
+  text-shadow: var(--shadow-glow-orange);
+}
+
+/* Responsive container utility */
+.container {
+  width: 100%;
+  max-width: var(--container-sm);
+  margin: 0 auto;
+  padding: 0 var(--spacing-sm);
+}
+
+/* Mobile-first section styling */
+.section {
+  padding: var(--spacing-xl) 0;
+  min-height: auto;
+}
+
+/* Utility classes */
+.text-center {
+  text-align: center;
+}
+
+.text-gradient {
+  background: linear-gradient(45deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animation Classes */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(0, 212, 255, 0.6); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.blink {
+  animation: blink 1.5s infinite;
+}
+
+.glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Scroll Reveal Animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile-first button styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  min-height: 2.75rem; /* 44px - touch-friendly */
+  border: 0.125rem solid var(--color-accent);
+  background: transparent;
+  color: var(--color-accent);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.4), transparent);
+  transition: var(--transition-slow);
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn:hover {
+  color: var(--color-text);
+  background: var(--color-accent);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn-primary:hover {
+  background: var(--color-primary);
+  box-shadow: var(--shadow-glow-orange);
+}
+
+/* Mobile-first card styles */
+.card {
+  background: var(--color-card);
+  border: 0.0625rem solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  transform: scaleX(0);
+  transition: var(--transition-normal);
+}
+
+.card:hover::before {
+  transform: scaleX(1);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-accent);
+}
+
+/* Responsive breakpoints with mobile-first approach */
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 36em) {
+  :root {
+    --spacing-xxl: 5rem;
+  }
+  
+  .container {
+    max-width: var(--container-md);
+    padding: 0 var(--spacing-md);
+  }
+  
+  h1 {
+    font-size: var(--text-4xl);
+  }
+  
+  h2 {
+    font-size: var(--text-3xl);
+  }
+  
+  .section {
+    padding: var(--spacing-xxl) 0;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 48em) {
+  .container {
+    max-width: var(--container-lg);
+  }
+  
+  h1 {
+    font-size: var(--text-5xl);
+  }
+  
+  h2 {
+    font-size: var(--text-4xl);
+  }
+  
+  .section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+  
+  .btn {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-size: var(--text-base);
+  }
+  
+  .card {
+    padding: var(--spacing-lg);
+  }
+}
+
+/* Large devices (desktops, 1024px and up) */
+@media (min-width: 64em) {
+  .container {
+    max-width: var(--container-xl);
+  }
+  
+  h1 {
+    font-size: clamp(var(--text-4xl), 5vw, 6rem);
+  }
+  
+  h2 {
+    font-size: clamp(var(--text-3xl), 4vw, 4rem);
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 75em) {
+  .container {
+    padding: 0 var(--spacing-xl);
+  }
+}
+
+/* Interactive Cursor States */
+button, a, input, textarea, select, .clickable {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g fill="%23FF7A00"><circle cx="16" cy="16" r="3" fill="%23FF7A00"/><circle cx="16" cy="16" r="8" fill="none" stroke="%23FF7A00" stroke-width="2"/><rect x="14" y="2" width="4" height="6"/><rect x="14" y="24" width="4" height="6"/><rect x="2" y="14" width="6" height="4"/><rect x="24" y="14" width="6" height="4"/></g></svg>') 16 16, pointer;
+  transition: transform 0.1s ease;
+}
+
+button:hover, a:hover, .clickable:hover {
+  transform: scale(1.05);
+}
+
+button:active, a:active, .clickable:active {
+  transform: scale(0.95);
+}
+
+/* Text Selection Cursor */
+input[type="text"], input[type="email"], textarea {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g fill="%2300D4FF"><rect x="15" y="4" width="2" height="24"/><rect x="12" y="4" width="8" height="2"/><rect x="12" y="26" width="8" height="2"/></g></svg>') 16 16, text;
+}

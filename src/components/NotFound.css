@@ -1,0 +1,481 @@
+.not-found {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
+}
+
+.dungeon-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.stone-walls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(105, 105, 105, 0.1) 0%, transparent 50%),
+    linear-gradient(45deg, transparent 25%, rgba(139, 69, 19, 0.05) 25%, rgba(139, 69, 19, 0.05) 75%, transparent 75%);
+  background-size: 200px 200px, 150px 150px, 50px 50px;
+  animation: stoneShift 20s linear infinite;
+}
+
+.mist-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(ellipse at center bottom, rgba(128, 128, 128, 0.1) 0%, transparent 70%),
+    linear-gradient(to top, rgba(0, 0, 0, 0.3) 0%, transparent 50%);
+  animation: mistFlow 15s ease-in-out infinite alternate;
+}
+
+.torch {
+  position: absolute;
+  top: 15%;
+  width: 60px;
+  height: 120px;
+  z-index: 1;
+}
+
+.torch-left {
+  left: 10%;
+}
+
+.torch-right {
+  right: 10%;
+}
+
+.torch::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 80px;
+  background: linear-gradient(to bottom, #8B4513 0%, #654321 100%);
+  border-radius: 4px;
+}
+
+.torch-flame {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  animation: torchFlame 1s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 15px #FF6B00);
+}
+
+.torch.flicker .torch-flame {
+  animation: torchFlicker 0.2s ease-in-out;
+}
+
+.bats {
+  position: absolute;
+  top: 20%;
+  width: 100%;
+  height: 200px;
+  pointer-events: none;
+}
+
+.bat {
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0;
+  transition: var(--transition-normal);
+}
+
+.bat-1 { left: 20%; top: 30%; }
+.bat-2 { left: 60%; top: 10%; }
+.bat-3 { left: 80%; top: 50%; }
+
+.bats.flying .bat {
+  opacity: 1;
+  animation: batFly 2s linear;
+}
+
+.dungeon-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  padding: var(--spacing-xl);
+  background: rgba(42, 42, 42, 0.8);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 0 30px rgba(0, 0, 0, 0.5),
+    inset 0 0 20px rgba(139, 69, 19, 0.1);
+}
+
+.error-code {
+  font-family: var(--font-heading);
+  font-size: 8rem;
+  font-weight: 900;
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+}
+
+.code-4 {
+  color: var(--color-primary);
+  text-shadow: 
+    0 0 20px var(--color-primary),
+    0 0 40px var(--color-primary);
+  animation: codeGlow 2s ease-in-out infinite alternate;
+}
+
+.code-skull {
+  font-size: 6rem;
+  animation: skullBob 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px #FF0000);
+}
+
+.dungeon-title {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-lg);
+  text-shadow: 
+    0 0 10px var(--color-accent),
+    2px 2px 4px rgba(0, 0, 0, 0.8);
+  animation: titlePulse 3s ease-in-out infinite;
+}
+
+.dungeon-message {
+  margin-bottom: var(--spacing-xl);
+}
+
+.message-line {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-xs);
+  animation: fadeInUp 1s ease-out;
+  animation-fill-mode: both;
+}
+
+.message-line:nth-child(1) { animation-delay: 0.2s; }
+.message-line:nth-child(2) { animation-delay: 0.4s; }
+.message-line:nth-child(3) { animation-delay: 0.6s; }
+
+.dungeon-stats {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  background: var(--bg-secondary);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  font-family: var(--font-heading);
+}
+
+.stat-icon {
+  font-size: 1.2rem;
+  filter: drop-shadow(0 0 5px currentColor);
+}
+
+.stat-label {
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.stat-value {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.dungeon-actions {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+  margin-bottom: var(--spacing-xl);
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border: 2px solid;
+  background: transparent;
+  border-radius: var(--radius-md);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.return-btn {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.return-btn:hover {
+  background: var(--color-accent);
+  color: var(--bg-primary);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.explore-btn {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.explore-btn:hover {
+  background: var(--color-primary);
+  color: var(--bg-primary);
+  box-shadow: 0 0 20px rgba(255, 122, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-icon {
+  font-size: 1.2rem;
+  transition: var(--transition-fast);
+}
+
+.action-btn:hover .btn-icon {
+  transform: scale(1.2);
+}
+
+.dungeon-footer {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.footer-text {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+}
+
+.footer-icon {
+  animation: tipGlow 2s ease-in-out infinite alternate;
+}
+
+.dungeon-decorations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.spider-web {
+  position: absolute;
+  font-size: 2rem;
+  opacity: 0.6;
+  animation: webSway 4s ease-in-out infinite;
+}
+
+.web-1 {
+  top: 10%;
+  left: 15%;
+  animation-delay: 0s;
+}
+
+.web-2 {
+  top: 20%;
+  right: 10%;
+  animation-delay: 2s;
+}
+
+.treasure-chest {
+  position: absolute;
+  bottom: 10%;
+  left: 5%;
+  font-size: 2.5rem;
+  animation: treasureGlow 3s ease-in-out infinite alternate;
+  cursor: pointer;
+}
+
+.skeleton {
+  position: absolute;
+  bottom: 15%;
+  right: 8%;
+  font-size: 2rem;
+  opacity: 0.7;
+  animation: skeletonRattle 5s ease-in-out infinite;
+}
+
+.crystal {
+  position: absolute;
+  font-size: 1.5rem;
+  animation: crystalShine 2s ease-in-out infinite alternate;
+}
+
+.crystal-1 {
+  top: 60%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.crystal-2 {
+  top: 70%;
+  right: 15%;
+  animation-delay: 1s;
+}
+
+/* Animations */
+@keyframes stoneShift {
+  0% { background-position: 0 0, 0 0, 0 0; }
+  100% { background-position: 200px 200px, -150px -150px, -50px -50px; }
+}
+
+@keyframes mistFlow {
+  0% { opacity: 0.3; }
+  100% { opacity: 0.6; }
+}
+
+@keyframes torchFlame {
+  0% { transform: translateX(-50%) scale(1) rotate(-2deg); }
+  100% { transform: translateX(-50%) scale(1.1) rotate(2deg); }
+}
+
+@keyframes torchFlicker {
+  0%, 100% { opacity: 1; transform: translateX(-50%) scale(1); }
+  50% { opacity: 0.7; transform: translateX(-50%) scale(0.9); }
+}
+
+@keyframes batFly {
+  0% { transform: translateX(-100px) translateY(20px); opacity: 0; }
+  10%, 90% { opacity: 1; }
+  100% { transform: translateX(calc(100vw + 100px)) translateY(-30px); opacity: 0; }
+}
+
+@keyframes codeGlow {
+  0% { text-shadow: 0 0 20px var(--color-primary); }
+  100% { text-shadow: 0 0 40px var(--color-primary), 0 0 60px var(--color-primary); }
+}
+
+@keyframes skullBob {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes titlePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes tipGlow {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+@keyframes webSway {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+@keyframes treasureGlow {
+  0% { filter: drop-shadow(0 0 5px #FFD700); }
+  100% { filter: drop-shadow(0 0 15px #FFD700); }
+}
+
+@keyframes skeletonRattle {
+  0%, 96%, 100% { transform: translateX(0); }
+  2%, 4% { transform: translateX(-2px); }
+}
+
+@keyframes crystalShine {
+  0% { filter: drop-shadow(0 0 5px #00D4FF); }
+  100% { filter: drop-shadow(0 0 15px #00D4FF); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .error-code {
+    font-size: 4rem;
+    gap: var(--spacing-sm);
+  }
+  
+  .code-skull {
+    font-size: 3rem;
+  }
+  
+  .dungeon-title {
+    font-size: 1.8rem;
+  }
+  
+  .dungeon-content {
+    padding: var(--spacing-lg);
+    margin: var(--spacing-md);
+  }
+  
+  .dungeon-stats {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+  
+  .dungeon-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .action-btn {
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  .torch {
+    width: 40px;
+    height: 80px;
+  }
+  
+  .torch-flame {
+    font-size: 1.5rem;
+  }
+  
+  .spider-web, .treasure-chest, .skeleton, .crystal {
+    font-size: 1.2rem;
+  }
+}

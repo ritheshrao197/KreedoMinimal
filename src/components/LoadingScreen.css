@@ -1,0 +1,330 @@
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0A0A0A;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.loading-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.loading-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(0, 212, 255, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.2) 1px, transparent 1px);
+  background-size: 30px 30px;
+  animation: gridMove 10s linear infinite;
+}
+
+.loading-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.loading-particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  animation: particleRise linear infinite;
+  opacity: 0.6;
+  box-shadow: 0 0 6px var(--color-accent);
+}
+
+.loading-particle:nth-child(odd) {
+  background: var(--color-primary);
+  box-shadow: 0 0 6px var(--color-primary);
+}
+
+.loading-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 600px;
+  padding: var(--spacing-xl);
+}
+
+/* Logo */
+.loading-logo {
+  position: relative;
+  margin-bottom: var(--spacing-xxl);
+}
+
+.logo-text {
+  font-family: var(--font-heading);
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--color-primary);
+  margin: 0;
+  text-shadow: 
+    0 0 20px rgba(255, 122, 0, 0.8),
+    0 0 40px rgba(255, 122, 0, 0.6),
+    0 0 60px rgba(255, 122, 0, 0.4);
+  animation: logoGlow 2s ease-in-out infinite alternate;
+}
+
+.logo-subtitle {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--color-accent);
+  letter-spacing: 4px;
+  margin: 0;
+  margin-top: -10px;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+}
+
+.logo-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 122, 0, 0.2) 0%,
+    rgba(0, 212, 255, 0.1) 50%,
+    transparent 70%
+  );
+  animation: glowPulse 3s ease-in-out infinite;
+  z-index: -1;
+}
+
+/* Loading Info */
+.loading-info {
+  margin-bottom: var(--spacing-xxl);
+}
+
+.loading-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-lg);
+  min-height: 2rem;
+}
+
+.message-text {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.loading-dots {
+  display: flex;
+  gap: 2px;
+}
+
+.loading-dots span {
+  color: var(--color-accent);
+  animation: dotBlink 1.5s ease-in-out infinite;
+  font-size: 1.2rem;
+}
+
+.loading-dots span:nth-child(1) { animation-delay: 0s; }
+.loading-dots span:nth-child(2) { animation-delay: 0.5s; }
+.loading-dots span:nth-child(3) { animation-delay: 1s; }
+
+/* Progress Bar */
+.loading-progress {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+.progress-bar {
+  background: var(--bg-secondary);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  height: 20px;
+  margin-bottom: var(--spacing-sm);
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  transition: width 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: progressSweep 2s ease-in-out infinite;
+}
+
+.progress-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.progress-percentage {
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.progress-status {
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+
+/* Footer */
+.loading-footer {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+.loading-footer p {
+  margin: 0 0 var(--spacing-sm) 0;
+  font-style: italic;
+}
+
+.loading-version {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  animation: blink 2s infinite;
+  box-shadow: 0 0 10px var(--color-accent);
+}
+
+/* Animations */
+@keyframes gridMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(30px, 30px); }
+}
+
+@keyframes particleRise {
+  0% {
+    transform: translateY(100vh) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100px) translateX(50px);
+    opacity: 0;
+  }
+}
+
+@keyframes logoGlow {
+  0% {
+    text-shadow: 
+      0 0 20px rgba(255, 122, 0, 0.8),
+      0 0 40px rgba(255, 122, 0, 0.6),
+      0 0 60px rgba(255, 122, 0, 0.4);
+  }
+  100% {
+    text-shadow: 
+      0 0 30px rgba(255, 122, 0, 1),
+      0 0 50px rgba(255, 122, 0, 0.8),
+      0 0 70px rgba(255, 122, 0, 0.6);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.6;
+  }
+}
+
+@keyframes dotBlink {
+  0%, 20% { opacity: 0; }
+  50%, 100% { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes progressSweep {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .loading-content {
+    padding: var(--spacing-lg);
+  }
+  
+  .logo-text {
+    font-size: 3rem;
+  }
+  
+  .logo-subtitle {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+  }
+  
+  .message-text {
+    font-size: 1rem;
+  }
+  
+  .loading-version {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+}
