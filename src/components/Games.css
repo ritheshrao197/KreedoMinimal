@@ -2,8 +2,10 @@
 .games {
   background: var(--bg-primary);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   padding: var(--spacing-xl) 0;
+  z-index: 10;
+  isolation: isolate;
 }
 
 .games::before {
@@ -14,8 +16,9 @@
   width: 100%;
   height: 100%;
   background: 
-    radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 122, 0, 0.08) 0%, transparent 50%);
+    radial-gradient(circle at 20% 50%, rgba(30, 144, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(245, 179, 1, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 60% 80%, rgba(215, 38, 56, 0.06) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
 }
@@ -24,7 +27,7 @@
   text-align: center;
   margin-bottom: var(--spacing-xl);
   position: relative;
-  z-index: 1;
+  z-index: 11;
   padding: 0 var(--spacing-sm);
 }
 
@@ -34,8 +37,13 @@
   gap: var(--spacing-md);
   margin-bottom: var(--spacing-xl);
   position: relative;
-  z-index: 1;
+  z-index: 12;
   padding: 0 var(--spacing-sm);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  opacity: 1;
+  transition: opacity var(--transition-normal) ease-in-out;
 }
 
 .game-card {
@@ -46,6 +54,7 @@
   transition: var(--transition-normal);
   position: relative;
   cursor: pointer;
+  z-index: 13;
   /* Mobile touch improvements */
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
@@ -59,17 +68,17 @@
   left: 0;
   right: 0;
   height: 0.1875rem;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent), var(--color-secondary));
   transform: scaleX(0);
   transition: var(--transition-normal);
 }
 
 .game-card:hover {
   transform: translateY(-0.25rem);
-  border-color: var(--color-accent);
+  border-color: var(--color-primary);
   box-shadow: 
     var(--shadow-lg),
-    0 0 1.875rem rgba(0, 212, 255, 0.3);
+    0 0 1.875rem rgba(245, 179, 1, 0.4);
 }
 
 /* Mobile touch feedback */
@@ -79,7 +88,7 @@
     border-color: var(--color-primary);
     box-shadow: 
       var(--shadow-lg),
-      0 0 1.5rem rgba(255, 122, 0, 0.4);
+      0 0 1.5rem rgba(245, 179, 1, 0.4);
   }
   
   .game-card:hover {
@@ -120,21 +129,21 @@
 }
 
 .difficulty-easy {
-  background: rgba(0, 255, 0, 0.2);
-  color: #00FF00;
-  border: 0.0625rem solid rgba(0, 255, 0, 0.3);
+  background: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+  border: 0.0625rem solid rgba(76, 175, 80, 0.3);
 }
 
 .difficulty-medium {
-  background: rgba(255, 165, 0, 0.2);
-  color: #FFA500;
-  border: 0.0625rem solid rgba(255, 165, 0, 0.3);
+  background: rgba(245, 179, 1, 0.2);
+  color: var(--color-primary);
+  border: 0.0625rem solid rgba(245, 179, 1, 0.3);
 }
 
 .difficulty-hard {
-  background: rgba(255, 0, 0, 0.2);
-  color: #FF4444;
-  border: 0.0625rem solid rgba(255, 0, 0, 0.3);
+  background: rgba(215, 38, 56, 0.2);
+  color: var(--color-secondary);
+  border: 0.0625rem solid rgba(215, 38, 56, 0.3);
 }
 
 .game-card-body {
@@ -184,8 +193,8 @@
 .play-button {
   width: 100%;
   background: transparent;
-  border: 0.125rem solid var(--color-accent);
-  color: var(--color-accent);
+  border: 0.125rem solid var(--color-primary);
+  color: var(--color-primary);
   padding: var(--spacing-md);
   border-radius: var(--radius-md);
   font-family: var(--font-heading);
@@ -242,7 +251,11 @@
 /* Game Player Styles */
 .game-player {
   position: relative;
-  z-index: 1;
+  z-index: 100;
+  width: 100%;
+  isolation: isolate;
+  opacity: 1;
+  transition: opacity var(--transition-normal) ease-in-out;
 }
 
 .game-player-header {
@@ -256,6 +269,8 @@
   border-radius: var(--radius-lg);
   flex-wrap: wrap;
   gap: var(--spacing-sm);
+  position: relative;
+  z-index: 101;
 }
 
 /* Mobile responsive adjustments */
@@ -336,14 +351,28 @@
 .game-container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   min-height: 500px;
-  padding: var(--spacing-lg);
+  padding: var(--spacing-md);
   background: var(--color-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  z-index: 102;
+  isolation: isolate;
+}
+
+/* Ensure game content is properly positioned and responsive */
+.game-container > * {
+  position: relative;
+  z-index: 103;
+  width: 100%;
+  max-width: min(100%, 600px);
+  box-sizing: border-box;
 }
 
 .game-container::before {
@@ -354,6 +383,7 @@
   right: 0;
   height: 3px;
   background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  z-index: 1;
 }
 
 /* Easter Egg Hint */
@@ -361,7 +391,7 @@
   text-align: center;
   margin-top: var(--spacing-xxl);
   position: relative;
-  z-index: 1;
+  z-index: 14;
 }
 
 .hint-content {
@@ -417,6 +447,201 @@
   }
   60% {
     transform: translateY(-3px);
+  }
+}
+
+/* Force visibility and prevent blank states */
+.games-grid.force-visible,
+.game-player.force-visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: grid !important;
+}
+
+.games-grid.force-visible .game-card {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
+}
+
+/* Additional safety rules to prevent hiding */
+.games-grid {
+  min-height: 200px !important;
+}
+
+.games-grid .game-card {
+  opacity: 1;
+  visibility: visible;
+  display: block;
+}
+
+/* Ensure games section is always visible */
+.games {
+  min-height: 400px;
+}
+
+/* Prevent any accidental hiding of games content */
+.games:not(.hidden) .games-grid {
+  display: grid !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.games:not(.hidden) .game-card {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+/* Responsive Game Styling - Make all games fit screen */
+.game-container > .tic-tac-toe,
+.game-container > .snake-game,
+.game-container > .memory-match,
+.game-container > .game-2048,
+.game-container > .connect-four,
+.game-container > .minesweeper,
+.game-container > .simon-says,
+.game-container > .guess-the-number,
+.game-container > .hangman {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  box-sizing: border-box;
+}
+
+/* Mobile responsive adjustments for games */
+@media (max-width: 48em) {
+  .game-container {
+    padding: var(--spacing-sm);
+    min-height: 400px;
+  }
+  
+  .game-container > * {
+    max-width: 100% !important;
+    padding: var(--spacing-sm) !important;
+  }
+  
+  /* Specific mobile game adjustments */
+  .tic-tac-toe .tic-board {
+    max-width: 100%;
+  }
+  
+  .tic-tac-toe .tic-cell {
+    min-height: clamp(50px, 15vw, 80px);
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+  }
+  
+  .snake-game .game-canvas {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .memory-match .cards-grid {
+    gap: clamp(4px, 2vw, 8px);
+  }
+  
+  .game-2048 .game-board {
+    max-width: 100%;
+  }
+  
+  .simon-says .simon-board {
+    max-width: 100%;
+  }
+}
+
+/* Tablet responsive adjustments */
+@media (min-width: 48em) and (max-width: 64em) {
+  .game-container {
+    padding: var(--spacing-md);
+  }
+  
+  .game-container > * {
+    max-width: 500px;
+  }
+}
+
+/* Desktop responsive adjustments */
+@media (min-width: 64em) {
+  .game-container {
+    padding: var(--spacing-lg);
+  }
+  
+  .game-container > * {
+    max-width: 600px;
+  }
+}
+
+/* Universal Game Responsive Rules */
+.game-container > .connect-four {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.game-container > .minesweeper {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.game-container > .simon-says {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.game-container > .guess-the-number {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.game-container > .hangman {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Ensure all game boards are responsive */
+.connect-four .game-board,
+.minesweeper .mine-grid,
+.simon-says .simon-board,
+.guess-the-number .guess-container,
+.hangman .hangman-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Mobile-specific game adjustments */
+@media (max-width: 48em) {
+  .connect-four .game-board {
+    max-width: 100%;
+  }
+  
+  .minesweeper .mine-grid {
+    max-width: 100%;
+    gap: clamp(2px, 1vw, 4px);
+  }
+  
+  .simon-says .simon-board {
+    max-width: 100%;
+  }
+  
+  .simon-says .simon-button {
+    min-height: clamp(60px, 20vw, 120px);
+  }
+  
+  .guess-the-number .guess-input {
+    font-size: clamp(1rem, 4vw, 1.2rem);
+  }
+  
+  .hangman .word-display {
+    font-size: clamp(1.2rem, 5vw, 2rem);
+  }
+  
+  .hangman .alphabet {
+    gap: clamp(4px, 2vw, 8px);
+  }
+  
+  .hangman .letter-btn {
+    min-height: clamp(35px, 10vw, 45px);
+    font-size: clamp(0.8rem, 3vw, 1rem);
   }
 }
 

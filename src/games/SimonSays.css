@@ -1,13 +1,14 @@
 /* Mobile-first Simon Says Game Styles */
 .simon-game {
   width: 100%;
-  max-width: 28rem;
+  max-width: 100%;
   margin: 0 auto;
   padding: var(--spacing-md);
   background: var(--color-card);
   border-radius: var(--radius-lg);
   border: 0.125rem solid var(--color-border);
   color: var(--color-text);
+  box-sizing: border-box;
 }
 
 .game-header {
@@ -107,7 +108,7 @@
 .simon-board {
   position: relative;
   width: 100%;
-  max-width: 20rem;
+  max-width: min(20rem, 90vw);
   margin: 0 auto var(--spacing-lg);
   aspect-ratio: 1;
 }
@@ -131,6 +132,7 @@
   border-radius: 0.5rem;
   position: relative;
   overflow: hidden;
+  min-height: clamp(60px, 20vw, 120px);
   /* Mobile touch improvements */
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;

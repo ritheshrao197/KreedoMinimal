@@ -302,22 +302,22 @@ const Minesweeper: React.FC = () => {
       </div>
 
       <div className={`minesweeper-board size-${gridSize}`}>
-        {board.map((row, rowIndex) => (
-          <div key={rowIndex} className="board-row">
-            {row.map((cell, colIndex) => (
-              <button
-                key={colIndex}
-                className={getCellClass(cell)}
-                onClick={() => revealCell(rowIndex, colIndex)}
-                onContextMenu={(e) => toggleFlag(rowIndex, colIndex, e)}
-                onTouchStart={() => playSound('hover')}
-                disabled={gameStatus !== 'playing' && cell.state !== 'hidden'}
-              >
-                {getCellContent(cell)}
-              </button>
-            ))}
-          </div>
-        ))}
+        {board.flat().map((cell, index) => {
+          const rowIndex = Math.floor(index / gridSize)
+          const colIndex = index % gridSize
+          return (
+            <button
+              key={index}
+              className={getCellClass(cell)}
+              onClick={() => revealCell(rowIndex, colIndex)}
+              onContextMenu={(e) => toggleFlag(rowIndex, colIndex, e)}
+              onTouchStart={() => playSound('hover')}
+              disabled={gameStatus !== 'playing' && cell.state !== 'hidden'}
+            >
+              {getCellContent(cell)}
+            </button>
+          )
+        })}
       </div>
 
       <div className="game-stats">

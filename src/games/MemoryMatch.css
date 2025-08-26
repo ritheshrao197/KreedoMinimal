@@ -3,10 +3,12 @@
   border: 2px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--spacing-lg);
-  max-width: 500px;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .memory-match::before {
@@ -160,9 +162,13 @@
 .memory-board {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--spacing-sm);
+  gap: clamp(8px, 3vw, 16px);
   margin-bottom: var(--spacing-lg);
   perspective: 1000px;
+  width: 100%;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .memory-card {
@@ -170,7 +176,11 @@
   cursor: pointer;
   transition: var(--transition-fast);
   position: relative;
-  min-height: 80px;
+  min-height: clamp(60px, 18vw, 100px);
+  /* Mobile touch improvements */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
 }
 
 .memory-card:hover:not(.flipped) {

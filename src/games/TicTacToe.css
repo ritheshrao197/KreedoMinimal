@@ -3,10 +3,12 @@
   border: 2px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--spacing-lg);
-  max-width: 300px;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .tic-tac-toe::before {
@@ -107,6 +109,11 @@
   background: var(--color-border);
   border-radius: var(--radius-sm);
   padding: 4px;
+  width: 100%;
+  max-width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  aspect-ratio: 1;
 }
 
 .tic-cell {
@@ -121,9 +128,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
   font-weight: 900;
-  min-height: 60px;
+  min-height: clamp(50px, 15vw, 100px);
+  /* Mobile touch improvements */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
 }
 
 .tic-cell:hover:not(:disabled) {

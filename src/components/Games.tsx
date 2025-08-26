@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useGame } from '../contexts/GameContext'
 import TicTacToe from '../games/TicTacToe'
 import SnakeGame from '../games/SnakeGame'
@@ -25,6 +25,76 @@ interface GameInfo {
 const Games: React.FC = () => {
   const { playSound, showAchievement } = useGame()
   const [selectedGame, setSelectedGame] = useState<GameType>(null)
+  const [forceRender, setForceRender] = useState(0)
+  const [isTransitioning, setIsTransitioning] = useState(false)
+  
+  // Immediate visibility assurance
+  const ensureGamesVisible = useCallback(() => {
+    // Multiple approaches to ensure visibility
+    const gamesGrid = document.querySelector('.games-grid') as HTMLElement
+    const gamesSection = document.getElementById('games') as HTMLElement
+    
+    if (gamesGrid) {
+      // Force immediate visibility
+      gamesGrid.style.display = 'grid'
+      gamesGrid.style.opacity = '1'
+      gamesGrid.style.visibility = 'visible'
+      gamesGrid.style.transform = 'none'
+      gamesGrid.classList.add('force-visible')
+      
+      // Ensure all game cards are visible
+      const gameCards = gamesGrid.querySelectorAll('.game-card')
+      gameCards.forEach((card: any) => {
+        if (card.style) {
+          card.style.opacity = '1'
+          card.style.visibility = 'visible'
+          card.style.display = 'block'
+        }
+      })
+    }
+    
+    if (gamesSection) {
+      gamesSection.style.display = 'block'
+      gamesSection.style.visibility = 'visible'
+    }
+  }, [])
+  
+  // Cleanup effect to prevent state issues
+  useEffect(() => {
+    // Cleanup function to run when selectedGame changes or component unmounts
+    return () => {
+      // Clear any timers, intervals, or other cleanup needed
+      if (selectedGame === null) {
+        // Force a small delay to ensure DOM updates
+        setTimeout(() => {
+          window.dispatchEvent(new Event('resize'))
+          ensureGamesVisible()
+        }, 10)
+      }
+    }
+  }, [selectedGame, ensureGamesVisible])
+  
+  // Force re-render effect when returning to games
+  useEffect(() => {
+    if (selectedGame === null && forceRender > 0) {
+      setIsTransitioning(false)
+      // Immediate visibility assurance
+      ensureGamesVisible()
+      
+      // Additional safety timeout
+      setTimeout(() => {
+        ensureGamesVisible()
+      }, 100)
+    }
+  }, [selectedGame, forceRender, ensureGamesVisible])
+  
+  // Mount effect to ensure initial visibility
+  useEffect(() => {
+    // Ensure games are visible when component mounts
+    setTimeout(() => {
+      ensureGamesVisible()
+    }, 100)
+  }, [])
   
   const gamesList: GameInfo[] = [
     {
@@ -129,17 +199,48 @@ const Games: React.FC = () => {
     }
   }
 
-  const handleBackToGames = () => {
+  const handleBackToGames = useCallback(() => {
+    // Set transition state
+    setIsTransitioning(true)
+    
+    // Immediately ensure games will be visible
+    ensureGamesVisible()
+    
+    // Clear the selected game to trigger unmounting
     setSelectedGame(null)
     playSound('click')
-    // Scroll to games section header
-    setTimeout(() => {
-      const gamesHeader = document.querySelector('.games-header')
-      if (gamesHeader) {
-        gamesHeader.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      }
-    }, 100)
-  }
+    
+    // Force a complete re-render and state refresh
+    setForceRender(prev => prev + 1)
+    
+    // Immediate visibility assurance (synchronous)
+    ensureGamesVisible()
+    
+    // Multiple safety timeouts with immediate visibility
+    requestAnimationFrame(() => {
+      ensureGamesVisible()
+      
+      setTimeout(() => {
+        // Clear any cached game state
+        window.dispatchEvent(new Event('resize'))
+        ensureGamesVisible()
+        
+        // Scroll to games section header after ensuring visibility
+        setTimeout(() => {
+          const gamesHeader = document.querySelector('.games-header')
+          if (gamesHeader) {
+            gamesHeader.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          }
+          
+          // Final safety check
+          setTimeout(() => {
+            ensureGamesVisible()
+            setIsTransitioning(false)
+          }, 200)
+        }, 50)
+      }, 25)
+    })
+  }, [ensureGamesVisible, playSound])
 
   const renderGame = () => {
     switch (selectedGame) {
@@ -171,12 +272,26 @@ const Games: React.FC = () => {
         </div>
 
         {!selectedGame ? (
-          <div className="games-grid grid-auto-fit-md">
+          <div 
+            className="games-grid grid-auto-fit-md" 
+            key={`games-grid-${forceRender}`}
+            style={{
+              display: 'grid',
+              opacity: isTransitioning ? 1 : 1,
+              visibility: 'visible',
+              transition: 'opacity 0.3s ease-in-out'
+            }}
+          >
             {gamesList.map((game, index) => (
               <div 
-                key={game.id}
+                key={`${game.id}-${forceRender}`}
                 className="game-card card-responsive fade-in clickable"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                style={{ 
+                  animationDelay: `${index * 0.1}s`,
+                  opacity: 1,
+                  visibility: 'visible',
+                  display: 'block'
+                }}
                 onClick={() => handleGameSelect(game.id)}
                 onTouchStart={() => playSound('hover')}
                 onTouchEnd={(e) => {
@@ -244,7 +359,7 @@ const Games: React.FC = () => {
               </div>
             </div>
             
-            <div className="game-container">
+            <div className="game-container" key={selectedGame}>
               {renderGame()}
             </div>
           </div>

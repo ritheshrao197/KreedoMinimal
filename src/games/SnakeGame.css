@@ -3,10 +3,12 @@
   border: 2px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--spacing-lg);
-  max-width: 450px;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .snake-game::before {
@@ -76,13 +78,18 @@
   border-radius: var(--radius-md);
   overflow: hidden;
   background: #0A0A0A;
+  width: 100%;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  aspect-ratio: 1;
 }
 
 .game-canvas {
   display: block;
   width: 100%;
-  height: auto;
-  max-width: 400px;
+  height: 100%;
+  object-fit: contain;
 }
 
 .game-overlay {
