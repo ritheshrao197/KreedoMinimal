@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   right: 0;
-  background: rgba(13, 13, 13, 0.98);
+  background: rgba(8, 8, 8, 0.98);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
   z-index: var(--z-fixed);
@@ -13,7 +13,7 @@
 }
 
 .navigation.scrolled {
-  background: rgba(13, 13, 13, 0.99);
+  background: rgba(5, 5, 5, 0.99);
   box-shadow: var(--shadow-lg);
   border-bottom-color: var(--color-primary);
 }
@@ -126,7 +126,7 @@
   left: -100%;
   width: 100%;
   height: 100vh;
-  background: var(--bg-primary);
+  background: rgba(5, 5, 5, 0.98);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -278,20 +278,22 @@
     min-height: auto;
     width: auto;
     border-radius: var(--radius-md);
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
   }
   
   .nav-link:hover {
-    background: rgba(245, 179, 1, 0.1);
+    background: rgba(245, 179, 1, 0.2);
     border-color: var(--color-primary);
     transform: translateY(-2px);
+    box-shadow: var(--shadow-glow-primary);
   }
   
   .nav-text {
     font-size: 0.85rem;
     color: #ffffff;
-    font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-bold);
   }
   
   .nav-link:hover .nav-text {
