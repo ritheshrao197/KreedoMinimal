@@ -2,8 +2,10 @@
 .games {
   background: var(--bg-primary);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   padding: var(--spacing-xl) 0;
+  z-index: 10;
+  isolation: isolate;
 }
 
 .games::before {
@@ -25,7 +27,7 @@
   text-align: center;
   margin-bottom: var(--spacing-xl);
   position: relative;
-  z-index: 1;
+  z-index: 11;
   padding: 0 var(--spacing-sm);
 }
 
@@ -35,11 +37,13 @@
   gap: var(--spacing-md);
   margin-bottom: var(--spacing-xl);
   position: relative;
-  z-index: 1;
+  z-index: 12;
   padding: 0 var(--spacing-sm);
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
+  opacity: 1;
+  transition: opacity var(--transition-normal) ease-in-out;
 }
 
 .game-card {
@@ -50,6 +54,7 @@
   transition: var(--transition-normal);
   position: relative;
   cursor: pointer;
+  z-index: 13;
   /* Mobile touch improvements */
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
@@ -246,7 +251,11 @@
 /* Game Player Styles */
 .game-player {
   position: relative;
-  z-index: 1;
+  z-index: 100;
+  width: 100%;
+  isolation: isolate;
+  opacity: 1;
+  transition: opacity var(--transition-normal) ease-in-out;
 }
 
 .game-player-header {
@@ -260,6 +269,8 @@
   border-radius: var(--radius-lg);
   flex-wrap: wrap;
   gap: var(--spacing-sm);
+  position: relative;
+  z-index: 101;
 }
 
 /* Mobile responsive adjustments */
@@ -347,10 +358,20 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
+  z-index: 102;
+  isolation: isolate;
+}
+
+/* Ensure game content is properly positioned */
+.game-container > * {
+  position: relative;
+  z-index: 103;
+  width: 100%;
+  max-width: 100%;
 }
 
 .game-container::before {
@@ -361,6 +382,7 @@
   right: 0;
   height: 3px;
   background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  z-index: 1;
 }
 
 /* Easter Egg Hint */
@@ -368,7 +390,7 @@
   text-align: center;
   margin-top: var(--spacing-xxl);
   position: relative;
-  z-index: 1;
+  z-index: 14;
 }
 
 .hint-content {
@@ -425,6 +447,49 @@
   60% {
     transform: translateY(-3px);
   }
+}
+
+/* Force visibility and prevent blank states */
+.games-grid.force-visible,
+.game-player.force-visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: grid !important;
+}
+
+.games-grid.force-visible .game-card {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
+}
+
+/* Additional safety rules to prevent hiding */
+.games-grid {
+  min-height: 200px !important;
+}
+
+.games-grid .game-card {
+  opacity: 1;
+  visibility: visible;
+  display: block;
+}
+
+/* Ensure games section is always visible */
+.games {
+  min-height: 400px;
+}
+
+/* Prevent any accidental hiding of games content */
+.games:not(.hidden) .games-grid {
+  display: grid !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.games:not(.hidden) .game-card {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
 }
 
 /* Tablet breakpoint (768px and up) */
