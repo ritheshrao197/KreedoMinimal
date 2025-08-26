@@ -130,15 +130,18 @@ const Games: React.FC = () => {
   }
 
   const handleBackToGames = () => {
+    // First clear the selected game to trigger unmounting
     setSelectedGame(null)
     playSound('click')
-    // Scroll to games section header
+    
+    // Force a re-render to ensure clean state
     setTimeout(() => {
+      // Scroll to games section header after state has cleared
       const gamesHeader = document.querySelector('.games-header')
       if (gamesHeader) {
         gamesHeader.scrollIntoView({ behavior: 'smooth', block: 'start' })
       }
-    }, 100)
+    }, 50)
   }
 
   const renderGame = () => {
@@ -244,7 +247,7 @@ const Games: React.FC = () => {
               </div>
             </div>
             
-            <div className="game-container">
+            <div className="game-container" key={selectedGame}>
               {renderGame()}
             </div>
           </div>

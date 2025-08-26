@@ -262,12 +262,16 @@
     height: auto;
     background: transparent;
     flex-direction: row;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-md);
     transform: none;
+    left: 0;
+    opacity: 1;
   }
   
   .nav-item {
     width: auto;
+    opacity: 1;
+    transform: translateY(0);
   }
   
   .nav-link {
@@ -277,14 +281,16 @@
     padding: var(--spacing-sm) var(--spacing-md);
     min-height: auto;
     width: auto;
+    max-width: none;
     border-radius: var(--radius-md);
-    background: rgba(255, 255, 255, 0.15);
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(245, 179, 1, 0.15);
+    border: 2px solid rgba(245, 179, 1, 0.4);
     color: #ffffff;
+    margin: 0;
   }
   
   .nav-link:hover {
-    background: rgba(245, 179, 1, 0.2);
+    background: rgba(245, 179, 1, 0.3);
     border-color: var(--color-primary);
     transform: translateY(-2px);
     box-shadow: var(--shadow-glow-primary);
@@ -292,8 +298,9 @@
   
   .nav-text {
     font-size: 0.85rem;
-    color: #ffffff;
+    color: #000000;
     font-weight: var(--font-weight-bold);
+    text-shadow: none;
   }
   
   .nav-link:hover .nav-text {
@@ -331,7 +338,7 @@
 /* Desktop breakpoint (1024px and up) */
 @media (min-width: 64em) {
   .nav-container {
-    padding: 0 var(--spacing-lg);
+    padding: 0 var(--spacing-xl);
   }
   
   .logo-text {
@@ -343,15 +350,29 @@
   }
   
   .nav-link {
-    padding: var(--spacing-sm) var(--spacing-md);
-  }
-  
-  .nav-icon {
-    font-size: var(--text-xl);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: rgba(245, 179, 1, 0.2);
+    border: 2px solid rgba(245, 179, 1, 0.5);
+    font-size: 0.9rem;
   }
   
   .nav-text {
-    font-size: var(--text-sm);
+    font-size: 0.9rem;
+    color: #000000;
+    font-weight: var(--font-weight-bold);
+    text-shadow: none;
+  }
+  
+  .nav-link:hover {
+    background: rgba(245, 179, 1, 0.4);
+    border-color: var(--color-primary);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-glow-primary), var(--shadow-lg);
+  }
+  
+  .nav-link:hover .nav-text {
+    color: #000000;
+    text-shadow: none;
   }
 }
 

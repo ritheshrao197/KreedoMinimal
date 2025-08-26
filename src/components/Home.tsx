@@ -98,6 +98,25 @@ const Home: React.FC = () => {
     }
   }, [showContent])
 
+  useEffect(() => {
+    // Check if content has been made visible externally (via navigation)
+    const checkContentVisibility = () => {
+      const mainContent = document.querySelector('.main-content')
+      const homeContainer = document.querySelector('.home')
+      
+      if (mainContent?.classList.contains('visible') && 
+          homeContainer?.classList.contains('content-visible') && 
+          !showContent) {
+        setShowContent(true)
+      }
+    }
+    
+    // Check periodically
+    const interval = setInterval(checkContentVisibility, 100)
+    
+    return () => clearInterval(interval)
+  }, [showContent])
+
   return (
     <div className={`home ${showContent ? 'content-visible' : ''}`}>
       <Hero onPressStart={handlePressStart} />

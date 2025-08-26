@@ -40,10 +40,35 @@ const Navigation: React.FC = () => {
   }, [])
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+    // First, ensure content is visible by removing scroll-disabled classes
+    document.body.classList.remove('scroll-disabled')
+    document.documentElement.classList.remove('scroll-disabled')
+    
+    // Show main content by adding the visible class
+    const mainContent = document.querySelector('.main-content')
+    const homeContainer = document.querySelector('.home')
+    
+    if (mainContent && !mainContent.classList.contains('visible')) {
+      mainContent.classList.add('visible')
     }
+    
+    if (homeContainer && !homeContainer.classList.contains('content-visible')) {
+      homeContainer.classList.add('content-visible')
+    }
+    
+    // Small delay to ensure content is rendered before scrolling
+    setTimeout(() => {
+      if (id === 'home') {
+        // For home, scroll to the top of the page
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      } else {
+        const element = document.getElementById(id)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' })
+        }
+      }
+    }, 100)
+    
     // Close mobile menu after navigation
     setMobileMenuOpen(false)
   }
