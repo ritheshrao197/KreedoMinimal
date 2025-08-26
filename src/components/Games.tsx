@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useGame } from '../contexts/GameContext'
 import TicTacToe from '../games/TicTacToe'
 import SnakeGame from '../games/SnakeGame'
@@ -25,6 +25,20 @@ interface GameInfo {
 const Games: React.FC = () => {
   const { playSound, showAchievement } = useGame()
   const [selectedGame, setSelectedGame] = useState<GameType>(null)
+  
+  // Cleanup effect to prevent state issues
+  useEffect(() => {
+    // Cleanup function to run when selectedGame changes or component unmounts
+    return () => {
+      // Clear any timers, intervals, or other cleanup needed
+      if (selectedGame === null) {
+        // Force a small delay to ensure DOM updates
+        setTimeout(() => {
+          window.dispatchEvent(new Event('resize'))
+        }, 10)
+      }
+    }
+  }, [selectedGame])
   
   const gamesList: GameInfo[] = [
     {

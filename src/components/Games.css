@@ -37,6 +37,9 @@
   position: relative;
   z-index: 1;
   padding: 0 var(--spacing-sm);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .game-card {
