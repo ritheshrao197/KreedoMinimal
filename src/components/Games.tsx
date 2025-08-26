@@ -4,9 +4,14 @@ import TicTacToe from '../games/TicTacToe'
 import SnakeGame from '../games/SnakeGame'
 import MemoryMatch from '../games/MemoryMatch'
 import Game2048 from '../games/Game2048'
+import ConnectFour from '../games/ConnectFour'
+import Minesweeper from '../games/Minesweeper'
+import SimonSays from '../games/SimonSays'
+import GuessTheNumber from '../games/GuessTheNumber'
+import Hangman from '../games/Hangman'
 import './Games.css'
 
-type GameType = 'tic-tac-toe' | 'snake' | 'memory-match' | '2048' | null
+type GameType = 'tic-tac-toe' | 'snake' | 'memory-match' | '2048' | 'connect-four' | 'minesweeper' | 'simon-says' | 'guess-the-number' | 'hangman' | null
 
 interface GameInfo {
   id: GameType
@@ -22,6 +27,46 @@ const Games: React.FC = () => {
   const [selectedGame, setSelectedGame] = useState<GameType>(null)
   
   const gamesList: GameInfo[] = [
+    {
+      id: 'connect-four',
+      title: 'Connect Four',
+      description: 'Drop colored discs into a 7×6 grid. First to connect 4 in a row wins!',
+      icon: '🔴',
+      difficulty: 'Easy',
+      players: '2 Players'
+    },
+    {
+      id: 'minesweeper',
+      title: 'Minesweeper',
+      description: 'Small 5×5 or 8×8 grid with hidden mines. Tap to reveal, avoid bombs!',
+      icon: '💣',
+      difficulty: 'Medium',
+      players: '1 Player'
+    },
+    {
+      id: 'simon-says',
+      title: 'Simon Says',
+      description: 'Four colored buttons flash in sequence. Player repeats the pattern.',
+      icon: '🧠',
+      difficulty: 'Medium',
+      players: '1 Player'
+    },
+    {
+      id: 'guess-the-number',
+      title: 'Guess the Number',
+      description: 'Computer picks a random number between 1–100. Player guesses with hints!',
+      icon: '🔢',
+      difficulty: 'Easy',
+      players: '1 Player'
+    },
+    {
+      id: 'hangman',
+      title: 'Hangman',
+      description: 'Guess the word letter by letter. Wrong guesses slowly build the gallows!',
+      icon: '🎪',
+      difficulty: 'Medium',
+      players: '1 Player'
+    },
     {
       id: 'tic-tac-toe',
       title: 'Tic Tac Toe',
@@ -42,7 +87,7 @@ const Games: React.FC = () => {
       id: 'memory-match',
       title: 'Memory Match',
       description: 'Test your memory! Flip cards to find matching pairs of game icons.',
-      icon: '🧠',
+      icon: '🃏',
       difficulty: 'Medium',
       players: '1 Player'
     },
@@ -98,6 +143,11 @@ const Games: React.FC = () => {
 
   const renderGame = () => {
     switch (selectedGame) {
+      case 'connect-four': return <ConnectFour />
+      case 'minesweeper': return <Minesweeper />
+      case 'simon-says': return <SimonSays />
+      case 'guess-the-number': return <GuessTheNumber />
+      case 'hangman': return <Hangman />
       case 'tic-tac-toe': return <TicTacToe />
       case 'snake': return <SnakeGame />
       case 'memory-match': return <MemoryMatch />
@@ -199,17 +249,6 @@ const Games: React.FC = () => {
             </div>
           </div>
         )}
-
-        {/* Easter Egg Hint */}
-        <div className="easter-egg-hint fade-in">
-          <div className="hint-content">
-            <span className="hint-icon">🥚</span>
-            <span className="hint-text">
-              Psst... Try the <strong>Konami Code</strong> for a secret arcade experience!
-            </span>
-            <span className="hint-code">↑↑↓↓←→←→BA</span>
-          </div>
-        </div>
       </div>
     </section>
   )

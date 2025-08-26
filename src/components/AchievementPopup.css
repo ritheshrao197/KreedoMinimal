@@ -1,61 +1,49 @@
 /* Mobile-first Achievement Container */
 .achievement-container {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
   z-index: 9999;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  justify-content: flex-start;
   gap: var(--spacing-sm);
   pointer-events: none;
-  padding: var(--spacing-sm);
-  /* Full viewport coverage for all aspect ratios */
-  width: 100vw;
-  height: 100vh;
-  min-height: 100vh;
-  min-height: 100svh; /* Safe area for mobile browsers */
+  /* Compact notification style */
+  width: auto;
+  max-width: 20rem;
 }
 
 .achievement-wrapper {
   position: relative;
-  width: 100%;
+  width: auto;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   pointer-events: none;
 }
 
 .achievement-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(0.125rem);
-  animation: achievementOverlayFadeIn 0.3s ease-out forwards;
-  pointer-events: none;
-  z-index: -1;
+  /* Remove the full-screen overlay for a less intrusive popup */
+  display: none;
 }
 
 .achievement-popup {
   background: var(--color-card);
   border: 0.1875rem solid #FFD700;
   border-radius: var(--radius-lg);
-  padding: var(--spacing-md);
-  width: 100%;
+  padding: var(--spacing-sm);
+  width: auto;
+  min-width: 16rem;
   max-width: 20rem;
   position: relative;
   overflow: hidden;
   animation: achievementSlideIn 0.5s ease-out forwards, achievementGlow 2s ease-in-out infinite alternate;
   box-shadow: 
-    0 0.5rem 1.5625rem rgba(255, 215, 0, 0.4),
-    0 0 1.875rem rgba(255, 215, 0, 0.3),
-    inset 0 0 1.25rem rgba(255, 215, 0, 0.1);
+    0 0.25rem 0.75rem rgba(255, 215, 0, 0.4),
+    0 0 0.875rem rgba(255, 215, 0, 0.3),
+    inset 0 0 0.625rem rgba(255, 215, 0, 0.1);
   pointer-events: auto;
   cursor: pointer;
   /* Mobile touch improvements */
@@ -68,9 +56,9 @@
 .achievement-popup:hover {
   transform: scale(1.02);
   box-shadow: 
-    0 0.5rem 1.5625rem rgba(255, 215, 0, 0.6),
-    0 0 2.5rem rgba(255, 215, 0, 0.5),
-    inset 0 0 1.5625rem rgba(255, 215, 0, 0.2);
+    0 0.25rem 0.75rem rgba(255, 215, 0, 0.6),
+    0 0 1.25rem rgba(255, 215, 0, 0.5),
+    inset 0 0 0.75rem rgba(255, 215, 0, 0.2);
 }
 
 .achievement-popup:active {
@@ -140,18 +128,18 @@
 }
 
 .achievement-icon {
-  width: 3rem;
-  height: 3rem;
+  width: 2.5rem;
+  height: 2.5rem;
   background: linear-gradient(45deg, #FFD700, #FFA500);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(1.25rem, 4vw, 2rem);
+  font-size: clamp(1rem, 3vw, 1.5rem);
   border: 0.1875rem solid #FFD700;
   box-shadow: 
-    0 0 1.25rem rgba(255, 215, 0, 0.6),
-    inset 0 0 0.625rem rgba(255, 255, 255, 0.3);
+    0 0 0.625rem rgba(255, 215, 0, 0.6),
+    inset 0 0 0.3125rem rgba(255, 255, 255, 0.3);
   animation: achievementIconBounce 0.6s ease-out 0.2s both;
   flex-shrink: 0;
 }
@@ -212,14 +200,14 @@
   opacity: 0;
 }
 
-/* Animations optimized for centered layout */
+/* Animations optimized for top-right notification */
 @keyframes achievementSlideIn {
   0% {
-    transform: translateY(-3rem) scale(0.8);
+    transform: translateX(100%) translateY(-1rem) scale(0.8);
     opacity: 0;
   }
   100% {
-    transform: translateY(0) scale(1);
+    transform: translateX(0) translateY(0) scale(1);
     opacity: 1;
   }
 }
@@ -227,15 +215,15 @@
 @keyframes achievementGlow {
   0% {
     box-shadow: 
-      0 0.5rem 1.5625rem rgba(255, 215, 0, 0.4),
-      0 0 1.875rem rgba(255, 215, 0, 0.3),
-      inset 0 0 1.25rem rgba(255, 215, 0, 0.1);
+      0 0.25rem 0.75rem rgba(255, 215, 0, 0.4),
+      0 0 0.875rem rgba(255, 215, 0, 0.3),
+      inset 0 0 0.625rem rgba(255, 215, 0, 0.1);
   }
   100% {
     box-shadow: 
-      0 0.5rem 1.5625rem rgba(255, 215, 0, 0.6),
-      0 0 2.5rem rgba(255, 215, 0, 0.5),
-      inset 0 0 1.5625rem rgba(255, 215, 0, 0.2);
+      0 0.25rem 0.75rem rgba(255, 215, 0, 0.6),
+      0 0 1.25rem rgba(255, 215, 0, 0.5),
+      inset 0 0 0.75rem rgba(255, 215, 0, 0.2);
   }
 }
 
@@ -304,12 +292,15 @@
 /* Small phones (320px and up) - Portrait */
 @media (max-width: 20em) {
   .achievement-container {
-    padding: var(--spacing-xs);
+    top: var(--spacing-xs);
+    right: var(--spacing-xs);
+    max-width: 16rem;
   }
   
   .achievement-popup {
-    max-width: 18rem;
-    padding: var(--spacing-sm);
+    min-width: 14rem;
+    max-width: 16rem;
+    padding: var(--spacing-xs);
   }
   
   .achievement-content {
@@ -317,34 +308,39 @@
   }
   
   .achievement-icon {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
   }
 }
 
 /* Standard phones (375px and up) - Portrait */
 @media (min-width: 23.4375em) {
   .achievement-popup {
-    max-width: 22rem;
+    min-width: 16rem;
+    max-width: 18rem;
   }
 }
 
 /* Large phones (414px and up) - Portrait */
 @media (min-width: 25.875em) {
   .achievement-popup {
-    max-width: 24rem;
+    min-width: 18rem;
+    max-width: 20rem;
   }
 }
 
 /* Tablets and landscape phones (768px and up) */
 @media (min-width: 48em) {
   .achievement-container {
-    padding: var(--spacing-md);
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    max-width: 22rem;
   }
   
   .achievement-popup {
-    max-width: 26rem;
-    padding: var(--spacing-lg);
+    min-width: 18rem;
+    max-width: 22rem;
+    padding: var(--spacing-md);
   }
   
   .achievement-content {
@@ -352,77 +348,86 @@
   }
   
   .achievement-icon {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
   }
 }
 
 /* Desktop (1024px and up) */
 @media (min-width: 64em) {
   .achievement-container {
-    padding: var(--spacing-lg);
+    top: var(--spacing-lg);
+    right: var(--spacing-lg);
+    max-width: 24rem;
   }
   
   .achievement-popup {
-    max-width: 28rem;
-    padding: var(--spacing-xl);
+    min-width: 20rem;
+    max-width: 24rem;
+    padding: var(--spacing-md);
   }
   
   .achievement-icon {
-    width: 4rem;
-    height: 4rem;
+    width: 3rem;
+    height: 3rem;
   }
 }
 
 /* Large desktop (1440px and up) */
 @media (min-width: 90em) {
   .achievement-popup {
-    max-width: 32rem;
+    min-width: 22rem;
+    max-width: 26rem;
   }
 }
 
 /* Ultra-wide screens (1920px and up) */
 @media (min-width: 120em) {
   .achievement-popup {
-    max-width: 36rem;
+    min-width: 24rem;
+    max-width: 28rem;
   }
 }
 
 /* Landscape orientation adjustments */
 @media (orientation: landscape) and (max-height: 30em) {
   .achievement-container {
-    padding: var(--spacing-xs);
-    justify-content: flex-start;
-    padding-top: var(--spacing-md);
+    top: var(--spacing-xs);
+    right: var(--spacing-xs);
+    max-width: 18rem;
   }
   
   .achievement-popup {
-    max-width: 24rem;
-    padding: var(--spacing-sm);
+    min-width: 16rem;
+    max-width: 18rem;
+    padding: var(--spacing-xs);
   }
   
   .achievement-icon {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
   }
 }
 
 /* Very wide aspect ratios (21:9 and wider) */
 @media (min-aspect-ratio: 21/9) {
   .achievement-popup {
-    max-width: 28rem;
+    min-width: 20rem;
+    max-width: 24rem;
   }
 }
 
 /* Very tall aspect ratios (9:21 and taller) */
 @media (max-aspect-ratio: 9/21) {
   .achievement-container {
-    justify-content: flex-start;
-    padding-top: 20vh;
+    top: var(--spacing-md);
+    right: var(--spacing-sm);
+    max-width: 18rem;
   }
   
   .achievement-popup {
-    max-width: 90vw;
+    min-width: 16rem;
+    max-width: 18rem;
   }
 }
 
@@ -458,9 +463,9 @@
   .achievement-popup:active {
     transform: scale(0.95);
     box-shadow: 
-      0 0.25rem 1rem rgba(255, 215, 0, 0.8),
-      0 0 1.5rem rgba(255, 215, 0, 0.7),
-      inset 0 0 1rem rgba(255, 215, 0, 0.3);
+      0 0.125rem 0.5rem rgba(255, 215, 0, 0.8),
+      0 0 0.75rem rgba(255, 215, 0, 0.7),
+      inset 0 0 0.5rem rgba(255, 215, 0, 0.3);
   }
   
   .achievement-popup:hover {
