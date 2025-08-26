@@ -14,8 +14,9 @@
   width: 100%;
   height: 100%;
   background: 
-    radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 122, 0, 0.08) 0%, transparent 50%);
+    radial-gradient(circle at 20% 50%, rgba(30, 144, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(245, 179, 1, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 60% 80%, rgba(215, 38, 56, 0.06) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
 }
@@ -59,17 +60,17 @@
   left: 0;
   right: 0;
   height: 0.1875rem;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent), var(--color-secondary));
   transform: scaleX(0);
   transition: var(--transition-normal);
 }
 
 .game-card:hover {
   transform: translateY(-0.25rem);
-  border-color: var(--color-accent);
+  border-color: var(--color-primary);
   box-shadow: 
     var(--shadow-lg),
-    0 0 1.875rem rgba(0, 212, 255, 0.3);
+    0 0 1.875rem rgba(245, 179, 1, 0.4);
 }
 
 /* Mobile touch feedback */
@@ -79,7 +80,7 @@
     border-color: var(--color-primary);
     box-shadow: 
       var(--shadow-lg),
-      0 0 1.5rem rgba(255, 122, 0, 0.4);
+      0 0 1.5rem rgba(245, 179, 1, 0.4);
   }
   
   .game-card:hover {
@@ -120,21 +121,21 @@
 }
 
 .difficulty-easy {
-  background: rgba(0, 255, 0, 0.2);
-  color: #00FF00;
-  border: 0.0625rem solid rgba(0, 255, 0, 0.3);
+  background: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+  border: 0.0625rem solid rgba(76, 175, 80, 0.3);
 }
 
 .difficulty-medium {
-  background: rgba(255, 165, 0, 0.2);
-  color: #FFA500;
-  border: 0.0625rem solid rgba(255, 165, 0, 0.3);
+  background: rgba(245, 179, 1, 0.2);
+  color: var(--color-primary);
+  border: 0.0625rem solid rgba(245, 179, 1, 0.3);
 }
 
 .difficulty-hard {
-  background: rgba(255, 0, 0, 0.2);
-  color: #FF4444;
-  border: 0.0625rem solid rgba(255, 0, 0, 0.3);
+  background: rgba(215, 38, 56, 0.2);
+  color: var(--color-secondary);
+  border: 0.0625rem solid rgba(215, 38, 56, 0.3);
 }
 
 .game-card-body {
@@ -184,8 +185,8 @@
 .play-button {
   width: 100%;
   background: transparent;
-  border: 0.125rem solid var(--color-accent);
-  color: var(--color-accent);
+  border: 0.125rem solid var(--color-primary);
+  color: var(--color-primary);
   padding: var(--spacing-md);
   border-radius: var(--radius-md);
   font-family: var(--font-heading);

@@ -36,7 +36,7 @@
 .portal-frame {
   position: relative;
   background: var(--color-card);
-  border: 3px solid var(--color-accent);
+  border: 3px solid var(--color-primary);
   border-radius: var(--radius-lg);
   padding: var(--spacing-xl);
   max-width: 600px;
@@ -51,7 +51,7 @@
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(45deg, var(--color-primary), var(--color-accent), var(--color-primary));
+  background: linear-gradient(45deg, var(--color-primary), var(--color-accent), var(--color-secondary));
   background-size: 200% 200%;
   animation: portalGlow 3s ease-in-out infinite alternate;
   border-radius: var(--radius-lg);
@@ -67,9 +67,10 @@
   transform: translate(-50%, -50%);
   background: radial-gradient(
     circle,
-    rgba(0, 212, 255, 0.2) 0%,
-    rgba(255, 122, 0, 0.1) 50%,
-    transparent 70%
+    rgba(30, 144, 255, 0.2) 0%,
+    rgba(245, 179, 1, 0.15) 50%,
+    rgba(215, 38, 56, 0.1) 70%,
+    transparent 80%
   );
   animation: portalPulse 4s ease-in-out infinite;
   z-index: -1;
@@ -97,6 +98,11 @@
 .particle:nth-child(odd) {
   background: var(--color-primary);
   box-shadow: 0 0 10px var(--color-primary);
+}
+
+.particle:nth-child(3n) {
+  background: var(--color-secondary);
+  box-shadow: 0 0 10px var(--color-secondary);
 }
 
 @keyframes particleFloat {
@@ -143,7 +149,7 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
-  color: var(--color-accent);
+  color: var(--color-primary);
   font-family: var(--font-heading);
   font-weight: 600;
   text-transform: uppercase;
@@ -153,7 +159,7 @@
 
 .label-icon {
   font-size: 1rem;
-  filter: drop-shadow(0 0 5px var(--color-accent));
+  filter: drop-shadow(0 0 5px var(--color-primary));
 }
 
 .magic-input,
@@ -174,11 +180,11 @@
 .magic-select:focus,
 .magic-textarea:focus {
   outline: none;
-  border-color: var(--color-accent);
+  border-color: var(--color-primary);
   box-shadow: 
-    0 0 20px rgba(0, 212, 255, 0.3),
-    inset 0 0 20px rgba(0, 212, 255, 0.1);
-  background: rgba(0, 212, 255, 0.05);
+    0 0 20px rgba(245, 179, 1, 0.4),
+    inset 0 0 20px rgba(245, 179, 1, 0.1);
+  background: rgba(245, 179, 1, 0.05);
 }
 
 .magic-input::placeholder,
