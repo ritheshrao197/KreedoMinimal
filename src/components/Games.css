@@ -351,9 +351,9 @@
 .game-container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   min-height: 500px;
-  padding: var(--spacing-lg);
+  padding: var(--spacing-md);
   background: var(--color-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -366,12 +366,13 @@
   isolation: isolate;
 }
 
-/* Ensure game content is properly positioned */
+/* Ensure game content is properly positioned and responsive */
 .game-container > * {
   position: relative;
   z-index: 103;
   width: 100%;
-  max-width: 100%;
+  max-width: min(100%, 600px);
+  box-sizing: border-box;
 }
 
 .game-container::before {
@@ -490,6 +491,158 @@
   opacity: 1 !important;
   visibility: visible !important;
   display: block !important;
+}
+
+/* Responsive Game Styling - Make all games fit screen */
+.game-container > .tic-tac-toe,
+.game-container > .snake-game,
+.game-container > .memory-match,
+.game-container > .game-2048,
+.game-container > .connect-four,
+.game-container > .minesweeper,
+.game-container > .simon-says,
+.game-container > .guess-the-number,
+.game-container > .hangman {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  box-sizing: border-box;
+}
+
+/* Mobile responsive adjustments for games */
+@media (max-width: 48em) {
+  .game-container {
+    padding: var(--spacing-sm);
+    min-height: 400px;
+  }
+  
+  .game-container > * {
+    max-width: 100% !important;
+    padding: var(--spacing-sm) !important;
+  }
+  
+  /* Specific mobile game adjustments */
+  .tic-tac-toe .tic-board {
+    max-width: 100%;
+  }
+  
+  .tic-tac-toe .tic-cell {
+    min-height: clamp(50px, 15vw, 80px);
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+  }
+  
+  .snake-game .game-canvas {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .memory-match .cards-grid {
+    gap: clamp(4px, 2vw, 8px);
+  }
+  
+  .game-2048 .game-board {
+    max-width: 100%;
+  }
+  
+  .simon-says .simon-board {
+    max-width: 100%;
+  }
+}
+
+/* Tablet responsive adjustments */
+@media (min-width: 48em) and (max-width: 64em) {
+  .game-container {
+    padding: var(--spacing-md);
+  }
+  
+  .game-container > * {
+    max-width: 500px;
+  }
+}
+
+/* Desktop responsive adjustments */
+@media (min-width: 64em) {
+  .game-container {
+    padding: var(--spacing-lg);
+  }
+  
+  .game-container > * {
+    max-width: 600px;
+  }
+}
+
+/* Universal Game Responsive Rules */
+.game-container > .connect-four {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.game-container > .minesweeper {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.game-container > .simon-says {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.game-container > .guess-the-number {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.game-container > .hangman {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Ensure all game boards are responsive */
+.connect-four .game-board,
+.minesweeper .mine-grid,
+.simon-says .simon-board,
+.guess-the-number .guess-container,
+.hangman .hangman-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Mobile-specific game adjustments */
+@media (max-width: 48em) {
+  .connect-four .game-board {
+    max-width: 100%;
+  }
+  
+  .minesweeper .mine-grid {
+    max-width: 100%;
+    gap: clamp(2px, 1vw, 4px);
+  }
+  
+  .simon-says .simon-board {
+    max-width: 100%;
+  }
+  
+  .simon-says .simon-button {
+    min-height: clamp(60px, 20vw, 120px);
+  }
+  
+  .guess-the-number .guess-input {
+    font-size: clamp(1rem, 4vw, 1.2rem);
+  }
+  
+  .hangman .word-display {
+    font-size: clamp(1.2rem, 5vw, 2rem);
+  }
+  
+  .hangman .alphabet {
+    gap: clamp(4px, 2vw, 8px);
+  }
+  
+  .hangman .letter-btn {
+    min-height: clamp(35px, 10vw, 45px);
+    font-size: clamp(0.8rem, 3vw, 1rem);
+  }
 }
 
 /* Tablet breakpoint (768px and up) */
