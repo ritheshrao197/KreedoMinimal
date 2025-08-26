@@ -51,6 +51,14 @@ const Navigation: React.FC = () => {
     setMobileMenuOpen(false)
   }
 
+  const handleNavClick = (id: string) => {
+    scrollToSection(id)
+  }
+
+  const handleNavTouchStart = () => {
+    playSound('hover')
+  }
+
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen)
     playSound('click')
@@ -79,9 +87,10 @@ const Navigation: React.FC = () => {
         <ul className={`nav-menu ${mobileMenuOpen ? 'mobile-open' : ''}`}>
           <li className="nav-item">
             <button 
-              onClick={() => scrollToSection('home')} 
+              onClick={() => handleNavClick('home')} 
               className="nav-link"
               onMouseEnter={() => playSound('hover')}
+              onTouchStart={handleNavTouchStart}
             >
               <span className="nav-icon">🏠</span>
               <span className="nav-text">HOME</span>
@@ -89,9 +98,10 @@ const Navigation: React.FC = () => {
           </li>
           <li className="nav-item">
             <button 
-              onClick={() => scrollToSection('services')} 
+              onClick={() => handleNavClick('services')} 
               className="nav-link"
               onMouseEnter={() => playSound('hover')}
+              onTouchStart={handleNavTouchStart}
             >
               <span className="nav-icon">⚙️</span>
               <span className="nav-text">SERVICES</span>
@@ -99,9 +109,10 @@ const Navigation: React.FC = () => {
           </li>
           <li className="nav-item">
             <button 
-              onClick={() => scrollToSection('games')} 
+              onClick={() => handleNavClick('games')} 
               className="nav-link"
               onMouseEnter={() => playSound('hover')}
+              onTouchStart={handleNavTouchStart}
             >
               <span className="nav-icon">🕹️</span>
               <span className="nav-text">GAMES</span>
@@ -109,9 +120,10 @@ const Navigation: React.FC = () => {
           </li>
           <li className="nav-item">
             <button 
-              onClick={() => scrollToSection('about')} 
+              onClick={() => handleNavClick('about')} 
               className="nav-link"
               onMouseEnter={() => playSound('hover')}
+              onTouchStart={handleNavTouchStart}
             >
               <span className="nav-icon">🧑‍🚀</span>
               <span className="nav-text">CREW</span>
@@ -119,9 +131,10 @@ const Navigation: React.FC = () => {
           </li>
           <li className="nav-item">
             <button 
-              onClick={() => scrollToSection('contact')} 
+              onClick={() => handleNavClick('contact')} 
               className="nav-link"
               onMouseEnter={() => playSound('hover')}
+              onTouchStart={handleNavTouchStart}
             >
               <span className="nav-icon">📡</span>
               <span className="nav-text">CONTACT</span>
@@ -136,7 +149,13 @@ const Navigation: React.FC = () => {
       </div>
       
       {/* Mobile menu overlay */}
-      {mobileMenuOpen && <div className="mobile-menu-overlay" onClick={() => setMobileMenuOpen(false)}></div>}
+      {mobileMenuOpen && (
+        <div 
+          className="mobile-menu-overlay" 
+          onClick={() => setMobileMenuOpen(false)}
+          onTouchStart={() => setMobileMenuOpen(false)}
+        ></div>
+      )}
     </nav>
   )
 }

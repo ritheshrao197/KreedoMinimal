@@ -14,6 +14,10 @@ const Home: React.FC = () => {
 
   const handlePressStart = () => {
     setShowContent(true)
+    // Re-enable scrolling by removing CSS classes
+    document.body.classList.remove('scroll-disabled')
+    document.documentElement.classList.remove('scroll-disabled')
+    
     showAchievement({
       id: 'journey-begins',
       title: 'The Journey Begins',
@@ -28,10 +32,63 @@ const Home: React.FC = () => {
   }
 
   useEffect(() => {
+    // Disable scrolling initially until Press Start is clicked
+    if (!showContent) {
+      document.body.classList.add('scroll-disabled')
+      document.documentElement.classList.add('scroll-disabled')
+      
+      // Prevent scroll with keyboard (arrow keys, page up/down, space)
+      const preventScroll = (e: KeyboardEvent) => {
+        const keys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', 'Space']
+        if (keys.includes(e.code)) {
+          e.preventDefault()
+        }
+      }
+      
+      // Prevent wheel scroll
+      const preventWheel = (e: WheelEvent) => {
+        e.preventDefault()
+      }
+      
+      // Prevent touch scroll
+      const preventTouch = (e: TouchEvent) => {
+        if (e.touches.length > 1) return // Allow pinch zoom
+        e.preventDefault()
+      }
+      
+      // Reset scroll position to top
+      window.scrollTo(0, 0)
+      
+      document.addEventListener('keydown', preventScroll)
+      document.addEventListener('wheel', preventWheel, { passive: false })
+      document.addEventListener('touchmove', preventTouch, { passive: false })
+      
+      return () => {
+        document.removeEventListener('keydown', preventScroll)
+        document.removeEventListener('wheel', preventWheel)
+        document.removeEventListener('touchmove', preventTouch)
+      }
+    } else {
+      // Re-enable scrolling
+      document.body.classList.remove('scroll-disabled')
+      document.documentElement.classList.remove('scroll-disabled')
+    }
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.classList.remove('scroll-disabled')
+      document.documentElement.classList.remove('scroll-disabled')
+    }
+  }, [showContent])
+
+  useEffect(() => {
     // Simulate initial loading
     setTimeout(() => {
       setLoading(false)
     }, 3000)
+
+    // Only add scroll listeners if content is shown
+    if (!showContent) return
 
     // Track scroll-based achievements
     const handleScroll = () => {
@@ -107,7 +164,7 @@ const Home: React.FC = () => {
   }, [showContent, showAchievement, setLoading])
 
   return (
-    <div className="home">
+    <div className={`home ${showContent ? 'content-visible' : ''}`}>
       <Hero onPressStart={handlePressStart} />
       
       <div className={`main-content ${showContent ? 'visible' : ''}`}>

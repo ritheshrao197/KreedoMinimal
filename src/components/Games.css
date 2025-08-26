@@ -46,6 +46,10 @@
   transition: var(--transition-normal);
   position: relative;
   cursor: pointer;
+  /* Mobile touch improvements */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
 }
 
 .game-card::before {
@@ -66,6 +70,21 @@
   box-shadow: 
     var(--shadow-lg),
     0 0 1.875rem rgba(0, 212, 255, 0.3);
+}
+
+/* Mobile touch feedback */
+@media (pointer: coarse) {
+  .game-card:active {
+    transform: translateY(-0.125rem) scale(0.98);
+    border-color: var(--color-primary);
+    box-shadow: 
+      var(--shadow-lg),
+      0 0 1.5rem rgba(255, 122, 0, 0.4);
+  }
+  
+  .game-card:hover {
+    transform: none;
+  }
 }
 
 .game-card:hover::before {
@@ -183,6 +202,10 @@
   overflow: hidden;
   min-height: 3rem;
   font-size: var(--text-sm);
+  /* Mobile touch improvements */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
 }
 
 .play-button::before {
@@ -235,6 +258,24 @@
   gap: var(--spacing-sm);
 }
 
+/* Mobile responsive adjustments */
+@media (max-width: 48em) {
+  .game-player-header {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--spacing-md);
+  }
+  
+  .back-to-games-btn {
+    order: -1;
+    align-self: flex-start;
+  }
+  
+  .current-game-title {
+    font-size: var(--text-lg);
+  }
+}
+
 .back-to-games-btn {
   display: flex;
   align-items: center;
@@ -249,6 +290,11 @@
   cursor: pointer;
   transition: var(--transition-normal);
   font-size: 0.9rem;
+  /* Mobile touch improvements */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  min-height: 2.75rem;
 }
 
 .back-to-games-btn:hover {
@@ -256,6 +302,20 @@
   color: var(--bg-primary);
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(255, 122, 0, 0.4);
+}
+
+/* Mobile touch feedback for back button */
+@media (pointer: coarse) {
+  .back-to-games-btn:active {
+    background: var(--color-primary);
+    color: var(--bg-primary);
+    transform: scale(0.95);
+    box-shadow: 0 2px 8px rgba(255, 122, 0, 0.6);
+  }
+  
+  .back-to-games-btn:hover {
+    transform: none;
+  }
 }
 
 .current-game-title {

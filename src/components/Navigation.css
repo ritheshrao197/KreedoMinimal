@@ -65,6 +65,10 @@
   cursor: pointer;
   z-index: 1001;
   transition: var(--transition-fast);
+  /* Mobile touch improvements */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
 }
 
 .hamburger-line {
@@ -129,11 +133,29 @@
   width: 100%;
   min-height: 3rem;
   font-family: var(--font-heading);
+  /* Mobile touch improvements */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
 }
 
 .nav-link:hover {
   color: var(--color-accent);
   transform: scale(1.05);
+}
+
+/* Mobile touch feedback */
+@media (pointer: coarse) {
+  .nav-link:active {
+    color: var(--color-primary);
+    transform: scale(0.95);
+    background: rgba(255, 122, 0, 0.1);
+    border-radius: var(--radius-sm);
+  }
+  
+  .nav-link:hover {
+    transform: none;
+  }
 }
 
 .nav-icon {

@@ -1,14 +1,53 @@
 .home {
   position: relative;
+  min-height: 100vh;
+}
+
+/* Default state - content hidden and scrolling disabled */
+.home {
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* When content is visible, re-enable normal layout */
+.home.content-visible {
+  height: auto;
+  overflow: visible;
 }
 
 .main-content {
   opacity: 0;
-  transition: opacity 1s ease;
+  visibility: hidden;
+  transition: opacity 1s ease, visibility 0s linear 1s;
   transform: translateY(20px);
+  pointer-events: none;
+  /* Completely remove from layout when hidden */
+  position: absolute;
+  top: 100vh;
+  width: 100%;
 }
 
 .main-content.visible {
   opacity: 1;
+  visibility: visible;
   transform: translateY(0);
+  transition: opacity 1s ease;
+  pointer-events: auto;
+  /* Return to normal layout when visible */
+  position: static;
+  top: auto;
+}
+
+/* Global scroll prevention class */
+body.scroll-disabled,
+html.scroll-disabled {
+  overflow: hidden !important;
+  height: 100vh;
+  position: fixed;
+  width: 100%;
+}
+
+/* Ensure hero takes full viewport initially */
+.hero {
+  min-height: 100vh;
 }

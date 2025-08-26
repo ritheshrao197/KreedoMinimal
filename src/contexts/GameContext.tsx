@@ -17,6 +17,7 @@ interface GameContextType {
   // Achievements
   achievements: Achievement[]
   showAchievement: (achievement: Omit<Achievement, 'timestamp'>) => void
+  dismissAchievement: (timestamp: number) => void
   
   // Sound effects
   soundEnabled: boolean
@@ -127,6 +128,11 @@ export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
     }
   }, [soundEnabled])
 
+  const dismissAchievement = useCallback((timestamp: number) => {
+    setAchievements(prev => prev.filter(a => a.timestamp !== timestamp))
+    playSound('click')
+  }, [playSound])
+
   const toggleTheme = useCallback(() => {
     setTheme(prev => {
       const newTheme = prev === 'dark' ? 'light' : 'dark'
@@ -180,6 +186,7 @@ export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
     setLoading,
     achievements,
     showAchievement,
+    dismissAchievement,
     soundEnabled,
     toggleSound,
     playSound,

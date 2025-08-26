@@ -60,6 +60,13 @@ const Games: React.FC = () => {
     if (gameId === selectedGame) {
       setSelectedGame(null)
       playSound('click')
+      // Scroll back to games section when closing game
+      setTimeout(() => {
+        const gamesSection = document.getElementById('games')
+        if (gamesSection) {
+          gamesSection.scrollIntoView({ behavior: 'smooth' })
+        }
+      }, 100)
     } else {
       setSelectedGame(gameId)
       playSound('success')
@@ -75,6 +82,18 @@ const Games: React.FC = () => {
         localStorage.setItem(`${gameId}-played`, 'true')
       }
     }
+  }
+
+  const handleBackToGames = () => {
+    setSelectedGame(null)
+    playSound('click')
+    // Scroll to games section header
+    setTimeout(() => {
+      const gamesHeader = document.querySelector('.games-header')
+      if (gamesHeader) {
+        gamesHeader.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }, 100)
   }
 
   const renderGame = () => {
@@ -109,6 +128,11 @@ const Games: React.FC = () => {
                 className="game-card card-responsive fade-in clickable"
                 style={{ animationDelay: `${index * 0.1}s` }}
                 onClick={() => handleGameSelect(game.id)}
+                onTouchStart={() => playSound('hover')}
+                onTouchEnd={(e) => {
+                  e.preventDefault()
+                  handleGameSelect(game.id)
+                }}
               >
                 <div className="game-card-header">
                   <div className="game-icon-large">{game.icon}</div>
@@ -132,7 +156,14 @@ const Games: React.FC = () => {
                 </div>
                 
                 <div className="game-card-footer">
-                  <button className="play-button btn-touch">
+                  <button 
+                    className="play-button btn-touch"
+                    onTouchStart={() => playSound('hover')}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleGameSelect(game.id)
+                    }}
+                  >
                     <span className="play-icon">▶</span>
                     <span className="play-text">PLAY NOW</span>
                   </button>
@@ -145,7 +176,8 @@ const Games: React.FC = () => {
             <div className="game-player-header flex-mobile-column">
               <button 
                 className="back-to-games-btn btn-touch"
-                onClick={() => handleGameSelect(null)}
+                onClick={handleBackToGames}
+                onTouchStart={() => playSound('hover')}
               >
                 <span className="btn-icon">←</span>
                 <span className="btn-text">Back to Games</span>
