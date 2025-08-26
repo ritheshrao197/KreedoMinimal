@@ -5,13 +5,13 @@ import './NotFound.css'
 
 const NotFound: React.FC = () => {
   const navigate = useNavigate()
-  const { playSound, addAchievement } = useGame()
+  const { playSound, showAchievement } = useGame()
   const [torchFlicker, setTorchFlicker] = useState(false)
   const [batsFlying, setBatsFlying] = useState(false)
 
   useEffect(() => {
     // Achievement for getting lost
-    addAchievement({
+    showAchievement({
       id: 'lost-explorer',
       title: 'Lost Explorer',
       description: 'Wandered into the unknown depths',
@@ -35,7 +35,7 @@ const NotFound: React.FC = () => {
       clearInterval(flickerInterval)
       clearInterval(batInterval)
     }
-  }, [addAchievement, playSound])
+  }, [showAchievement, playSound])
 
   const handleReturn = () => {
     playSound('success')
@@ -51,7 +51,7 @@ const NotFound: React.FC = () => {
       { id: 'dungeon-master', title: 'Dungeon Master', description: 'Found the secret paths', icon: '🗝️' }
     ]
     const randomAchievement = explorationAchievements[Math.floor(Math.random() * explorationAchievements.length)]
-    addAchievement(randomAchievement)
+    showAchievement(randomAchievement)
   }
 
   return (

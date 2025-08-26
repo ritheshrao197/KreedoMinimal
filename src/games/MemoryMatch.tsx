@@ -12,7 +12,7 @@ interface Card {
 const GAME_SYMBOLS = ['🎮', '🕹️', '👾', '🎯', '⚡', '💎', '🔥', '⭐']
 
 const MemoryMatch: React.FC = () => {
-  const { playSound, addAchievement } = useGame()
+  const { playSound, showAchievement } = useGame()
   const [cards, setCards] = useState<Card[]>([])
   const [flippedCards, setFlippedCards] = useState<number[]>([])
   const [moves, setMoves] = useState(0)
@@ -65,7 +65,7 @@ const MemoryMatch: React.FC = () => {
   const startGame = () => {
     setGameStarted(true)
     playSound('success')
-    addAchievement({
+    showAchievement({
       id: 'memory-start',
       title: 'Memory Master',
       description: 'Started a memory challenge',
@@ -149,20 +149,20 @@ const MemoryMatch: React.FC = () => {
     // Award time-based achievement
     const timeAchievement = timeAchievements.find(ach => timer <= ach.time)
     if (timeAchievement) {
-      addAchievement(timeAchievement)
+      showAchievement(timeAchievement)
     }
 
     // Award move-based achievement
     const moveAchievement = moveAchievements.find(ach => moves <= ach.moves)
     if (moveAchievement) {
-      addAchievement(moveAchievement)
+      showAchievement(moveAchievement)
     }
 
     // Update best time
     if (!bestTime || timer < bestTime) {
       setBestTime(timer)
       localStorage.setItem('memoryMatchBestTime', timer.toString())
-      addAchievement({
+      showAchievement({
         id: 'new-record',
         title: 'New Record!',
         description: `Beat your best time: ${timer}s`,
@@ -173,7 +173,7 @@ const MemoryMatch: React.FC = () => {
 
   // Timer effect
   useEffect(() => {
-    let interval: NodeJS.Timeout
+    let interval: number
     
     if (gameStarted && !gameComplete) {
       interval = setInterval(() => {

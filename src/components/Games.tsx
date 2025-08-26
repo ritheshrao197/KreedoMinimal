@@ -18,7 +18,7 @@ interface GameInfo {
 }
 
 const Games: React.FC = () => {
-  const { playSound, addAchievement } = useGame()
+  const { playSound, showAchievement } = useGame()
   const [selectedGame, setSelectedGame] = useState<GameType>(null)
   
   const gamesList: GameInfo[] = [
@@ -66,7 +66,7 @@ const Games: React.FC = () => {
       
       // Add achievement for first game play
       if (!localStorage.getItem(`${gameId}-played`)) {
-        addAchievement({
+        showAchievement({
           id: `first-${gameId}`,
           title: 'Game Pioneer',
           description: `Started playing ${gamesList.find(g => g.id === gameId)?.title}!`,
@@ -179,4 +179,8 @@ const Games: React.FC = () => {
           </div>
         </div>
       </div>
-    </s
+    </section>
+  )
+}
+
+export default Games

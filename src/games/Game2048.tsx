@@ -28,7 +28,7 @@ const GAME_ICONS: { [key: number]: string } = {
 }
 
 const Game2048: React.FC = () => {
-  const { playSound, addAchievement } = useGame()
+  const { playSound, showAchievement } = useGame()
   const [grid, setGrid] = useState<Grid>([])
   const [score, setScore] = useState(0)
   const [bestScore, setBestScore] = useState<number>(
@@ -82,13 +82,13 @@ const Game2048: React.FC = () => {
     setMoveCount(0)
     
     playSound('success')
-    addAchievement({
+    showAchievement({
       id: '2048-start',
       title: 'Game Master',
       description: 'Started a 2048 challenge',
       icon: '🎮'
     })
-  }, [initializeGrid, addRandomTile, playSound, addAchievement])
+  }, [initializeGrid, addRandomTile, playSound, showAchievement])
 
   // Move tiles in a specific direction
   const moveTiles = useCallback((direction: Direction): { newGrid: Grid; moved: boolean; scoreGained: number } => {
@@ -271,7 +271,7 @@ const Game2048: React.FC = () => {
     if (!gameWon && checkWinCondition(gridWithNewTile)) {
       setGameWon(true)
       playSound('success')
-      addAchievement({
+      showAchievement({
         id: '2048-winner',
         title: '2048 Champion!',
         description: 'Reached the legendary 2048 tile',
@@ -293,10 +293,10 @@ const Game2048: React.FC = () => {
       
       const achievement = scoreAchievements.find(ach => newScore >= ach.score)
       if (achievement) {
-        addAchievement(achievement)
+        showAchievement(achievement)
       }
     }
-  }, [moveTiles, score, bestScore, gameWon, addRandomTile, checkWinCondition, isGameOver, playSound, addAchievement])
+  }, [moveTiles, score, bestScore, gameWon, addRandomTile, checkWinCondition, isGameOver, playSound, showAchievement])
 
   // Initialize game on component mount
   useEffect(() => {
