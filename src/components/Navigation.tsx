@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { useGame } from '../contexts/GameContext'
 import './Navigation.css'
 
 const Navigation: React.FC = () => {
-  const { playSound } = useGame()
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -42,7 +40,6 @@ const Navigation: React.FC = () => {
   }, [])
 
   const scrollToSection = (id: string) => {
-    playSound('click')
     const element = document.getElementById(id)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
@@ -55,13 +52,8 @@ const Navigation: React.FC = () => {
     scrollToSection(id)
   }
 
-  const handleNavTouchStart = () => {
-    playSound('hover')
-  }
-
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen)
-    playSound('click')
   }
 
   return (
@@ -76,7 +68,6 @@ const Navigation: React.FC = () => {
         <button 
           className={`mobile-menu-toggle ${mobileMenuOpen ? 'active' : ''}`}
           onClick={toggleMobileMenu}
-          onMouseEnter={() => playSound('hover')}
           aria-label="Toggle mobile menu"
         >
           <span className="hamburger-line"></span>
@@ -89,10 +80,7 @@ const Navigation: React.FC = () => {
             <button 
               onClick={() => handleNavClick('home')} 
               className="nav-link"
-              onMouseEnter={() => playSound('hover')}
-              onTouchStart={handleNavTouchStart}
             >
-              <span className="nav-icon">🏠</span>
               <span className="nav-text">HOME</span>
             </button>
           </li>
@@ -100,10 +88,7 @@ const Navigation: React.FC = () => {
             <button 
               onClick={() => handleNavClick('services')} 
               className="nav-link"
-              onMouseEnter={() => playSound('hover')}
-              onTouchStart={handleNavTouchStart}
             >
-              <span className="nav-icon">⚙️</span>
               <span className="nav-text">SERVICES</span>
             </button>
           </li>
@@ -111,10 +96,7 @@ const Navigation: React.FC = () => {
             <button 
               onClick={() => handleNavClick('games')} 
               className="nav-link"
-              onMouseEnter={() => playSound('hover')}
-              onTouchStart={handleNavTouchStart}
             >
-              <span className="nav-icon">🕹️</span>
               <span className="nav-text">GAMES</span>
             </button>
           </li>
@@ -122,21 +104,15 @@ const Navigation: React.FC = () => {
             <button 
               onClick={() => handleNavClick('about')} 
               className="nav-link"
-              onMouseEnter={() => playSound('hover')}
-              onTouchStart={handleNavTouchStart}
             >
-              <span className="nav-icon">🧑‍🚀</span>
-              <span className="nav-text">CREW</span>
+              <span className="nav-text">ABOUT</span>
             </button>
           </li>
           <li className="nav-item">
             <button 
               onClick={() => handleNavClick('contact')} 
               className="nav-link"
-              onMouseEnter={() => playSound('hover')}
-              onTouchStart={handleNavTouchStart}
             >
-              <span className="nav-icon">📡</span>
               <span className="nav-text">CONTACT</span>
             </button>
           </li>
